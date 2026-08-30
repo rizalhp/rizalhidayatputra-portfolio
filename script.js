@@ -1,3 +1,28 @@
+async function hydrateImage(group, parts) {
+  try {
+    const chunks = await Promise.all(parts.map((path) => fetch(path).then((res) => {
+      if (!res.ok) throw new Error(`Failed to load ${path}`);
+      return res.text();
+    })));
+    const src = `data:image/webp;base64,${chunks.join('')}`;
+    document.querySelectorAll(`[data-hq="${group}"]`).forEach((img) => {
+      img.src = src;
+      img.removeAttribute('data-hq');
+    });
+  } catch (error) {
+    console.warn(`HQ ${group} image could not be loaded.`, error);
+  }
+}
+
+hydrateImage('chibi', [
+  'assets/hq/chibi-01.txt','assets/hq/chibi-02.txt','assets/hq/chibi-03.txt',
+  'assets/hq/chibi-04.txt','assets/hq/chibi-05.txt','assets/hq/chibi-06.txt','assets/hq/chibi-07.txt'
+]);
+
+hydrateImage('airline', [
+  'assets/hq/airline-01.txt','assets/hq/airline-02.txt','assets/hq/airline-03.txt'
+]);
+
 const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('.nav');
 
@@ -66,21 +91,16 @@ function createParticles() {
 function drawParticles() {
   if (!canvas || !ctx) return;
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-  const glow = ctx.createRadialGradient(
-    window.innerWidth * 0.58, window.innerHeight * 0.12, 0,
-    window.innerWidth * 0.58, window.innerHeight * 0.12, window.innerHeight * 0.9
-  );
-  glow.addColorStop(0, 'rgba(185, 144, 79, 0.11)');
-  glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  ctx.fillStyle = glow;
+  const gradient = ctx.createRadialGradient(window.innerWidth * 0.5, 0, 20, window.innerWidth * 0.5, 0, window.innerHeight * 0.95);
+  gradient.addColorStop(0, 'rgba(185, 144, 79, 0.10)');
+  gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+  ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
   particles.forEach((p) => {
     p.x += p.vx;
     p.y += p.vy;
     p.twinkle += 0.02;
-
     if (p.y < -10) {
       p.y = window.innerHeight + 10;
       p.x = Math.random() * window.innerWidth;
@@ -88,9 +108,9 @@ function drawParticles() {
     if (p.x < -20) p.x = window.innerWidth + 20;
     if (p.x > window.innerWidth + 20) p.x = -20;
 
-    const alpha = Math.max(0.06, p.a + Math.sin(p.twinkle) * 0.08);
+    const alpha = p.a + Math.sin(p.twinkle) * 0.08;
     ctx.beginPath();
-    ctx.fillStyle = `rgba(220, 193, 138, ${alpha})`;
+    ctx.fillStyle = `rgba(220, 193, 138, ${Math.max(0.06, alpha)})`;
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
   });
