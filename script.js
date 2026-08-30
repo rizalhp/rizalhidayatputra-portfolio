@@ -1,28 +1,3 @@
-async function hydrateImage(group, parts) {
-  try {
-    const chunks = await Promise.all(parts.map((path) => fetch(path).then((res) => {
-      if (!res.ok) throw new Error(`Failed to load ${path}`);
-      return res.text();
-    })));
-    const src = `data:image/webp;base64,${chunks.join('')}`;
-    document.querySelectorAll(`[data-hq="${group}"]`).forEach((img) => {
-      img.src = src;
-      img.removeAttribute('data-hq');
-    });
-  } catch (error) {
-    console.warn(`HQ ${group} image could not be loaded.`, error);
-  }
-}
-
-hydrateImage('chibi', [
-  'assets/hq/chibi-01.txt','assets/hq/chibi-02.txt','assets/hq/chibi-03.txt',
-  'assets/hq/chibi-04.txt','assets/hq/chibi-05.txt','assets/hq/chibi-06.txt','assets/hq/chibi-07.txt'
-]);
-
-hydrateImage('airline', [
-  'assets/hq/airline-01.txt','assets/hq/airline-02.txt','assets/hq/airline-03.txt'
-]);
-
 const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('.nav');
 
@@ -38,13 +13,13 @@ document.querySelectorAll('.nav a').forEach((link) => {
   });
 });
 
-['dragstart','selectstart','copy','cut','contextmenu'].forEach((eventName) => {
+['dragstart', 'selectstart', 'copy', 'cut', 'contextmenu'].forEach((eventName) => {
   document.addEventListener(eventName, (event) => event.preventDefault());
 });
 
 document.addEventListener('keydown', (event) => {
   const key = event.key.toLowerCase();
-  if ((event.metaKey || event.ctrlKey) && ['a','c','x','s','u','p'].includes(key)) {
+  if ((event.metaKey || event.ctrlKey) && ['a', 'c', 'x', 's', 'u', 'p'].includes(key)) {
     event.preventDefault();
   }
 });
@@ -76,14 +51,14 @@ function resizeCanvas() {
 }
 
 function createParticles() {
-  const count = Math.max(36, Math.min(84, Math.floor(window.innerWidth / 24)));
+  const count = Math.max(34, Math.min(72, Math.floor(window.innerWidth / 28)));
   particles = Array.from({ length: count }, () => ({
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight,
-    r: Math.random() * 1.7 + 0.35,
-    a: Math.random() * 0.5 + 0.15,
-    vx: (Math.random() - 0.5) * 0.12,
-    vy: -(Math.random() * 0.28 + 0.04),
+    r: Math.random() * 1.45 + 0.35,
+    a: Math.random() * 0.42 + 0.12,
+    vx: (Math.random() - 0.5) * 0.1,
+    vy: -(Math.random() * 0.22 + 0.035),
     twinkle: Math.random() * Math.PI * 2
   }));
 }
@@ -91,16 +66,25 @@ function createParticles() {
 function drawParticles() {
   if (!canvas || !ctx) return;
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  const gradient = ctx.createRadialGradient(window.innerWidth * 0.5, 0, 20, window.innerWidth * 0.5, 0, window.innerHeight * 0.95);
-  gradient.addColorStop(0, 'rgba(185, 144, 79, 0.10)');
-  gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  ctx.fillStyle = gradient;
+
+  const glow = ctx.createRadialGradient(
+    window.innerWidth * 0.62,
+    window.innerHeight * 0.12,
+    0,
+    window.innerWidth * 0.62,
+    window.innerHeight * 0.12,
+    Math.max(window.innerWidth, window.innerHeight) * 0.7
+  );
+  glow.addColorStop(0, 'rgba(185, 144, 79, 0.075)');
+  glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+  ctx.fillStyle = glow;
   ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
   particles.forEach((p) => {
     p.x += p.vx;
     p.y += p.vy;
-    p.twinkle += 0.02;
+    p.twinkle += 0.018;
+
     if (p.y < -10) {
       p.y = window.innerHeight + 10;
       p.x = Math.random() * window.innerWidth;
@@ -108,9 +92,9 @@ function drawParticles() {
     if (p.x < -20) p.x = window.innerWidth + 20;
     if (p.x > window.innerWidth + 20) p.x = -20;
 
-    const alpha = p.a + Math.sin(p.twinkle) * 0.08;
+    const alpha = Math.max(0.05, p.a + Math.sin(p.twinkle) * 0.07);
     ctx.beginPath();
-    ctx.fillStyle = `rgba(220, 193, 138, ${Math.max(0.06, alpha)})`;
+    ctx.fillStyle = `rgba(220, 193, 138, ${alpha})`;
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
   });
@@ -121,7 +105,7 @@ function drawParticles() {
 if (canvas && ctx && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   resizeCanvas();
   drawParticles();
-  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', resizeCanvas, { passive: true });
 } else if (canvas && ctx) {
   resizeCanvas();
 }
