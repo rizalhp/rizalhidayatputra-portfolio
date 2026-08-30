@@ -1,0 +1,75 @@
+/* Final interaction + HQ visual overrides */
+*{
+  -webkit-user-select:none !important;
+  user-select:none !important;
+  -webkit-touch-callout:none !important;
+}
+::selection{background:transparent;color:inherit}
+a,img{
+  -webkit-user-drag:none !important;
+  user-drag:none !important;
+}
+img{
+  pointer-events:none;
+  image-rendering:auto;
+  backface-visibility:hidden;
+}
+
+/* Keep original pixels clean: no blend/sepia/softening on the supplied artwork. */
+.character-stage img{
+  object-fit:contain !important;
+  object-position:center !important;
+  mix-blend-mode:normal !important;
+  filter:drop-shadow(0 18px 36px rgba(0,0,0,.35)) !important;
+  transform:scale(1.01) translateZ(0) !important;
+}
+.brand-mark--image img{
+  object-fit:cover !important;
+  mix-blend-mode:normal !important;
+  filter:none !important;
+}
+.project-visual img{
+  object-position:top center !important;
+  filter:none !important;
+  image-rendering:auto !important;
+}
+
+/* Extra moving geometry behind the profile character. */
+.character-panel{isolation:isolate}
+.sigil,.sigil-quad{z-index:0;will-change:transform}
+.character-stage{z-index:1}
+.character-caption{z-index:2}
+.sigil--inner{animation:aspik-circle-spin 24s linear infinite !important}
+.sigil-quad{
+  position:absolute;
+  width:560px;
+  height:560px;
+  border:1px solid rgba(220,193,138,.14);
+  pointer-events:none;
+  transform:rotate(45deg);
+  transform-origin:50% 50%;
+}
+.sigil-quad::after{
+  content:"";
+  position:absolute;
+  inset:8%;
+  border:1px solid rgba(185,144,79,.08);
+}
+.sigil-quad--one{animation:aspik-square-spin 20s linear infinite}
+.sigil-quad--two{
+  width:430px;
+  height:430px;
+  border-color:rgba(220,193,138,.10);
+  animation:aspik-square-spin-reverse 15s linear infinite;
+}
+@keyframes aspik-circle-spin{to{transform:rotate(360deg)}}
+@keyframes aspik-square-spin{from{transform:rotate(45deg)}to{transform:rotate(405deg)}}
+@keyframes aspik-square-spin-reverse{from{transform:rotate(45deg)}to{transform:rotate(-315deg)}}
+
+@media(max-width:760px){
+  .sigil-quad--one{width:400px;height:400px}
+  .sigil-quad--two{width:315px;height:315px}
+}
+@media(prefers-reduced-motion:reduce){
+  .sigil--inner,.sigil-quad{animation:none !important}
+}
