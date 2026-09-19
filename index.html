@@ -1,370 +1,204 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#0d0c0a" name="theme-color"/>
+<meta content="Portfolio of Rizal Hidayat Putra — Data Analyst, Data Science, Business Intelligence, AI research, and product-oriented technical work." name="description"/>
+<title>Rizal Hidayat Putra — Data &amp; AI Portfolio</title>
+<script>try{if(location.hash&&location.hash!=="#welcome")document.documentElement.classList.add("has-deep-link")}catch(error){}</script>
+<link as="image" href="assets/profile-artwork.webp" rel="preload" type="image/webp"/><link href="styles.css" rel="stylesheet"/>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  />
 
-  <meta
-    name="theme-color"
-    content="#0d0c0a"
-  />
+<meta content="Rizal Hidayat Putra" name="author"/><meta content="Rizal Hidayat Putra Portfolio" property="og:site_name"/><meta content="index, follow, max-image-preview:large" name="robots"/><meta content="website" property="og:type"/><meta content="Rizal Hidayat Putra — Data &amp; AI Portfolio" property="og:title"/><meta content="Portfolio of Rizal Hidayat Putra — Data Analyst, Data Science, Business Intelligence, AI research, and product-oriented technical work." property="og:description"/><meta content="https://rizalhp-dev.vercel.app/" property="og:url"/><meta content="https://rizalhp-dev.vercel.app/assets/og-cover.webp" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Rizal Hidayat Putra data and technology portfolio" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Rizal Hidayat Putra — Data &amp; AI Portfolio" name="twitter:title"/><meta content="Portfolio of Rizal Hidayat Putra — Data Analyst, Data Science, Business Intelligence, AI research, and product-oriented technical work." name="twitter:description"/><meta content="https://rizalhp-dev.vercel.app/assets/og-cover.webp" name="twitter:image"/><link href="https://rizalhp-dev.vercel.app/" rel="canonical"/><link href="favicon.svg" rel="icon" type="image/svg+xml"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Rizal Hidayat Putra","url":"https://rizalhp-dev.vercel.app/","jobTitle":"Data Analyst / Data Science","alumniOf":{"@type":"CollegeOrUniversity","name":"Telkom University"},"sameAs":["https://github.com/rizalhp","https://www.linkedin.com/in/rizal-hidayat-putra-b570a9234","https://public.tableau.com/app/profile/rizal.hidayat.putra/vizzes"],"knowsAbout":["Data Analysis","Data Science","Business Intelligence","Python","SQL","Tableau","Machine Learning"]}</script></head>
+<body class="welcome-active">
+<!-- Cinematic welcome / reference-video inspired entry -->
+<div class="welcome-screen" id="welcome" role="region" aria-label="Welcome to Rizal Hidayat Putra portfolio">
+  <div class="welcome-backdrop" aria-hidden="true">
+    <img class="welcome-art welcome-art--back" src="assets/profile-artwork.webp" alt="" draggable="false" decoding="async" fetchpriority="high"/>
+    <div class="welcome-aura"></div>
+    <div class="welcome-grid"></div>
+    <img class="welcome-art welcome-art--main" src="assets/profile-artwork.webp" alt="" draggable="false" decoding="async" fetchpriority="high"/>
+  </div>
+  <div class="welcome-topbar">
+    <a class="welcome-brand" href="#welcome" aria-label="Welcome page">
+      <span class="welcome-brand-mark">RHP</span>
+      <span><strong>ASPIK</strong><small>digital portfolio</small></span>
+    </a>
+    <div class="welcome-meta"><span>DATA · AI · ANALYTICS · BUILD</span><span>PORTFOLIO / 2026</span></div>
+  </div>
+  <div class="welcome-copy">
+    <p class="welcome-kicker"><span></span> Welcome to the digital record</p>
+    <h1>Rizal <em>Hidayat Putra</em></h1>
+    <p>Junior Data Analyst · Data Science · Business Intelligence</p>
+  </div>
+  <div class="welcome-entry">
+    <button class="welcome-enter" type="button" aria-label="Enter portfolio">
+      <span>Enter portfolio</span><i aria-hidden="true">↓</i>
+    </button>
+    <small>SCROLL DOWN OR CLICK · CINEMATIC VIEW</small>
+  </div>
+  <div class="welcome-return-rift" aria-hidden="true"></div>
+</div>
 
-  <meta
-    name="description"
-    content="Portfolio of Rizal Hidayat Putra — Aspik. Data, AI, analytics, and interactive builds."
-  />
-
-  <title>Rizal Hidayat Putra — Aspik</title>
-
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="fixes.css" />
-</head>
-
-<body>
-
-  <!-- =====================================================
+<!-- Scroll-driven mosaic transition. One reversible timeline connects welcome and portfolio. -->
+<div class="portfolio-transition" aria-hidden="true">
+  <div class="mosaic-desaturate"></div>
+  <div class="mosaic-neutral"></div>
+  <canvas class="mosaic-organic-field" aria-hidden="true"></canvas>
+  <div class="mosaic-contour-band">
+    <img class="mosaic-contour-art mosaic-contour-art--back" data-src="assets/profile-artwork-contour.webp" alt="" draggable="false" decoding="async"/>
+    <img class="mosaic-contour-art mosaic-contour-art--main" data-src="assets/profile-artwork-contour.webp" alt="" draggable="false" decoding="async"/>
+  </div>
+  <div class="mosaic-edge"></div>
+  <div class="mosaic-grain"></div>
+  <div class="mosaic-divider" aria-hidden="true">
+    <svg class="mosaic-divider-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path class="mosaic-divider-echo" d=""/>
+      <path class="mosaic-divider-line" d=""/>
+    </svg>
+  </div>
+  <div class="transition-intertitle">
+    <span>01</span>
+    <h2>Portfolio Introduction</h2>
+    <i aria-hidden="true">⌄</i>
+  </div>
+</div>
+<!-- V2 / custom pointer -->
+<div aria-hidden="true" class="cursor-dot"></div>
+<div aria-hidden="true" class="cursor-ring"></div>
+<!-- =====================================================
        AMBIENT BACKGROUND
   ====================================================== -->
-
-  <canvas
-    class="particles"
-    aria-hidden="true"
-  ></canvas>
-
-  <div
-    class="grain"
-    aria-hidden="true"
-  ></div>
-
-  <div
-    class="page-ornament page-ornament--left"
-    aria-hidden="true"
-  ></div>
-
-  <div
-    class="page-ornament page-ornament--right"
-    aria-hidden="true"
-  ></div>
-
-
-  <!-- =====================================================
+<canvas aria-hidden="true" class="particles"></canvas>
+<div aria-hidden="true" class="grain"></div>
+<div aria-hidden="true" class="page-ornament page-ornament--left"></div>
+<div aria-hidden="true" class="page-ornament page-ornament--right"></div>
+<!-- =====================================================
        HEADER
   ====================================================== -->
-
-  <header class="site-header">
-
-    <a
-      class="brand"
-      href="#home"
-      aria-label="Aspik home"
-      draggable="false"
-    >
-
-      <span class="brand-mark brand-mark--image">
-
-        <img
-          src="assets/chibi-transparent.png"
-          alt="Aspik chibi emblem"
-          draggable="false"
-        />
-
-      </span>
-
-      <span class="brand-copy">
-
-        <strong>ASPIK</strong>
-
-        <small>
+<header class="site-header">
+<a aria-label="Return to welcome screen" class="brand js-return-welcome" draggable="false" href="#welcome">
+<span class="brand-mark brand-mark--image">
+<img alt="Aspik profile emblem artwork" decoding="async" draggable="false" height="256" loading="eager" src="assets/profile-emblem.webp" width="256"/>
+</span>
+<span class="brand-copy">
+<strong>ASPIK</strong>
+<small>
           digital portfolio
         </small>
-
-      </span>
-
-    </a>
-
-
-    <nav
-      class="nav"
-      aria-label="Primary navigation"
-    >
-
-      <a href="#profile">
+</span>
+</a>
+<nav aria-label="Primary navigation" class="nav" id="site-navigation">
+<a href="#profile">
         Profile
       </a>
-
-      <a href="#experience">
+<a href="#experience">
         Experience
       </a>
-
-      <a href="#projects">
+<a href="#projects">
         Projects
       </a>
-
-      <a href="#archive">
+<a href="#archive">
         Archive
       </a>
-
-      <a href="#contact">
+<a href="#contact">
         Contact
       </a>
-
-    </nav>
-
-
-    <button
-      class="menu-button"
-      type="button"
-      aria-label="Toggle navigation menu"
-      aria-expanded="false"
-    >
+</nav>
+<button aria-controls="site-navigation" aria-expanded="false" aria-label="Toggle navigation menu" class="menu-button" type="button">
       Menu
     </button>
-
-  </header>
-
-
-  <!-- =====================================================
+</header>
+<!-- =====================================================
        MAIN
   ====================================================== -->
-
-  <main>
-
-
-    <!-- ===================================================
+<main>
+<!-- ===================================================
          HERO
     ==================================================== -->
-
-    <section
-      id="home"
-      class="hero section-pad"
-    >
-
-      <div class="hero-copy reveal">
-
-        <p class="eyebrow">
-
-          <span></span>
-
-          Data · AI · Analytics · Build
-
-        </p>
-
-
-        <p class="nickname">
+<section class="hero section-pad" id="home">
+<div class="hero-copy reveal" data-parallax="-0.035">
+<p class="eyebrow"><span></span> Junior Data Analyst · Data Science · Business Intelligence</p>
+<p class="nickname">
 
           Known online as
 
           <strong>
             Aspik
           </strong>
-
-        </p>
-
-
-        <h1>
-
-          <span>
+</p>
+<h1>
+<span>
             Rizal
           </span>
-
-          <span>
+<span>
             Hidayat Putra
           </span>
-
-        </h1>
-
-
-        <p class="tagline">
+</h1>
+<p class="tagline">
           From raw code to pure vision.
         </p>
-
-
-        <p class="intro">
+<p class="intro">
 
           I turn messy data, ideas, and systems
           into clear decisions, useful products,
           and memorable digital experiences.
 
         </p>
-
-
-        <div class="hero-actions">
-
-          <a
-            class="button button--gold"
-            href="#projects"
-          >
-            Explore Selected Work
-          </a>
-
-
-          <a
-            class="button button--ghost"
-            href="https://github.com/rizalhp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub ↗
-          </a>
-
-        </div>
-
-
-        <div
-          class="social-row"
-          aria-label="Social links"
-        >
-
-          <a
-            href="https://www.instagram.com/rizaalhp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Instagram
-          </a>
-
-          <a
-            href="https://www.tiktok.com/@rizaalhp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            TikTok
-          </a>
-
-          <a
-            href="https://github.com/rizalhp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <!-- CHARACTER -->
-
-      <div
-        class="character-panel reveal delay-1"
-        aria-label="Aspik profile character"
-      >
-
-        <div
-          class="sigil sigil--outer"
-          aria-hidden="true"
-        ></div>
-
-
-        <div
-          class="sigil sigil--inner"
-          aria-hidden="true"
-        ></div>
-
-
-        <div
-          class="sigil-quad sigil-quad--one"
-          aria-hidden="true"
-        ></div>
-
-
-        <div
-          class="sigil-quad sigil-quad--two"
-          aria-hidden="true"
-        ></div>
-
-
-        <div class="character-stage">
-
-          <img
-            src="assets/chibi-transparent.png"
-            alt="Aspik chibi profile character"
-            draggable="false"
-          />
-
-        </div>
-
-
-        <div class="character-caption">
-
-          <span>
+<div class="hero-actions"><a class="button button--gold" href="#projects">Explore Selected Work</a><a class="button button--ghost" download="Rizal_Hidayat_Putra_CV.pdf" href="assets/Rizal_Hidayat_Putra_CV.pdf">Download CV ↓</a><a class="button button--ghost" href="https://github.com/rizalhp" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div>
+<div aria-label="Professional links" class="social-row"><a href="https://www.linkedin.com/in/rizal-hidayat-putra-b570a9234" rel="noopener noreferrer" target="_blank">LinkedIn</a><a href="https://public.tableau.com/app/profile/rizal.hidayat.putra/vizzes" rel="noopener noreferrer" target="_blank">Tableau Public</a><a href="https://github.com/rizalhp" rel="noopener noreferrer" target="_blank">GitHub</a></div>
+</div>
+<!-- CHARACTER -->
+<div aria-label="Aspik profile character" class="character-panel reveal delay-1">
+<div aria-hidden="true" class="sigil sigil--outer"></div>
+<div aria-hidden="true" class="sigil sigil--inner"></div>
+<div aria-hidden="true" class="sigil-quad sigil-quad--one"></div>
+<div aria-hidden="true" class="sigil-quad sigil-quad--two"></div>
+<div class="character-stage" data-parallax="0.105">
+<img alt="Aspik profile artwork" decoding="async" draggable="false" fetchpriority="high" height="1254" loading="eager" src="assets/profile-artwork.webp" width="1254"/>
+</div>
+<div class="character-caption" data-parallax="0.14">
+<span>
             PROFILE / 01
           </span>
-
-          <strong>
+<strong>
             ASPIK
           </strong>
-
-          <small>
+<small>
             Data mind. Builder instinct.
           </small>
-
-        </div>
-
-      </div>
-
-
-      <a
-        class="scroll-cue"
-        href="#profile"
-        aria-label="Scroll to profile"
-      >
-
-        <span>
+</div>
+</div>
+<a aria-label="Scroll to profile" class="scroll-cue" href="#profile">
+<span>
           Scroll to enter
         </span>
-
-        <i></i>
-
-      </a>
-
-    </section>
-
-
-    <!-- ===================================================
+<i></i>
+</a>
+</section>
+<!-- ===================================================
          PROFILE
     ==================================================== -->
-
-    <section
-      id="profile"
-      class="profile section-pad section-dark"
-    >
-
-      <div class="section-heading reveal">
-
-        <p class="section-kicker">
+<section class="profile section-pad section-dark" id="profile">
+<div class="section-heading reveal">
+<p class="section-kicker">
           Chapter I
         </p>
-
-        <h2>
+<h2>
           Profile
         </h2>
-
-        <p>
+<p>
           A modern analyst with an engineer's curiosity.
         </p>
-
-      </div>
-
-
-      <div class="profile-grid">
-
-
-        <article
-          class="profile-story ornate-card reveal"
-        >
-
-          <span class="card-index">
+</div>
+<div class="profile-grid">
+<article class="profile-story ornate-card reveal">
+<span class="card-index">
             01
           </span>
-
-
-          <p class="dropcap">
+<p class="dropcap">
 
             I work at the intersection of data,
             software, and product thinking.
@@ -374,9 +208,7 @@
             actually use.
 
           </p>
-
-
-          <p>
+<p>
 
             My strongest tools are Python, SQL,
             Excel, Tableau, and analytical problem
@@ -385,129 +217,77 @@
             documentation, and iterative product work.
 
           </p>
-
-        </article>
-
-
-        <div class="stat-stack reveal delay-1">
-
-
-          <div class="stat-card">
-
-            <small>
+</article>
+<div class="stat-stack reveal delay-1">
+<div class="stat-card">
+<small>
               Focus
             </small>
-
-            <strong>
+<strong>
               Data &amp; Intelligent Systems
             </strong>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <small>
+</div>
+<div class="stat-card">
+<small>
               Working style
             </small>
-
-            <strong>
+<strong>
               Analytical × Curious
             </strong>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <small>
+</div>
+<div class="stat-card">
+<small>
               Core stack
             </small>
-
-            <strong>
+<strong>
               Python · SQL · Tableau
             </strong>
-
-          </div>
-
-        </div>
-
-
-        <aside class="profile-note reveal delay-2">
-
-          <p class="quote-mark">
+</div>
+</div>
+<aside class="profile-note reveal delay-2">
+<p class="quote-mark">
             “
           </p>
-
-
-          <blockquote>
+<blockquote>
 
             Good analysis should not only be correct.
             It should make the next decision easier.
 
           </blockquote>
-
-
-          <span>
+<span>
             — personal principle
           </span>
-
-        </aside>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
+</aside>
+</div>
+</section>
+<!-- ===================================================
          EXPERIENCE
     ==================================================== -->
-
-    <section
-      id="experience"
-      class="experience section-pad"
-    >
-
-      <div class="section-heading reveal">
-
-        <p class="section-kicker">
+<section class="experience section-pad" id="experience">
+<div class="section-heading reveal">
+<p class="section-kicker">
           Chapter II
         </p>
-
-        <h2>
+<h2>
           Experience
         </h2>
-
-        <p>
+<p>
           Where analysis meets implementation.
         </p>
-
-      </div>
-
-
-      <div class="timeline">
-
-
-        <article class="timeline-item reveal">
-
-          <span class="timeline-year">
+</div>
+<div class="timeline">
+<article class="timeline-item reveal">
+<span class="timeline-year">
             2024
           </span>
-
-
-          <div class="timeline-body">
-
-            <p class="role-type">
+<div class="timeline-body">
+<p class="role-type">
               Data Science Internship
             </p>
-
-
-            <h3>
+<h3>
               PT Neural Technologies Indonesia
             </h3>
-
-
-            <p>
+<p>
 
               Supported requirement analysis,
               business-data processing, testing,
@@ -515,53 +295,34 @@
               user needs into implementation-ready work.
 
             </p>
-
-
-            <div class="chips">
-
-              <span>
+<div class="chips">
+<span>
                 Data Processing
               </span>
-
-              <span>
+<span>
                 SIT / UAT
               </span>
-
-              <span>
+<span>
                 Documentation
               </span>
-
-              <span>
+<span>
                 Requirements
               </span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <article class="timeline-item reveal">
-
-          <span class="timeline-year">
+</div>
+</div>
+</article>
+<article class="timeline-item reveal">
+<span class="timeline-year">
             2025—26
           </span>
-
-
-          <div class="timeline-body">
-
-            <p class="role-type">
+<div class="timeline-body">
+<p class="role-type">
               Independent Builder
             </p>
-
-
-            <h3>
+<h3>
               Interactive Game Development
             </h3>
-
-
-            <p>
+<p>
 
               Designed and iterated gameplay systems,
               economy loops, UI behavior, progression,
@@ -569,99 +330,58 @@
               product development.
 
             </p>
-
-
-            <div class="chips">
-
-              <span>
+<div class="chips">
+<span>
                 Systems Design
               </span>
-
-              <span>
+<span>
                 Game Logic
               </span>
-
-              <span>
+<span>
                 UX Iteration
               </span>
-
-              <span>
+<span>
                 Product Thinking
               </span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- ===================================================
          PROJECTS
     ==================================================== -->
-
-    <section
-      id="projects"
-      class="projects section-pad section-dark"
-    >
-
-      <div class="section-heading reveal">
-
-        <p class="section-kicker">
+<section class="projects section-pad section-dark" id="projects">
+<div class="section-heading reveal">
+<p class="section-kicker">
           Chapter III
         </p>
-
-        <h2>
+<h2>
           Selected Work
         </h2>
-
-        <p>
+<p>
           A curated mix of analysis and things I built.
         </p>
-
-      </div>
-
-
-      <!-- FEATURED PROJECT -->
-
-      <article class="featured-project reveal">
-
-        <div class="project-visual">
-
-          <img
-            src="assets/airline-dashboard.png"
-            alt="U.S. Airline Operations and Delay Intelligence dashboard"
-            draggable="false"
-          />
-
-
-          <div class="project-badge">
+</div>
+<!-- FEATURED PROJECT -->
+<a aria-label="Open Airline Operations case study" class="featured-project project-link reveal" href="project-airline.html">
+<div class="project-visual">
+<img alt="U.S. Airline Operations and Delay Intelligence dashboard" decoding="async" draggable="false" height="1244" loading="lazy" src="assets/airline-dashboard.webp" width="2162"/>
+<div class="project-badge">
             Featured Analysis
           </div>
-
-        </div>
-
-
-        <div class="project-copy">
-
-          <p class="project-no">
+</div>
+<div class="project-copy">
+<p class="project-no">
             01 / DATA
           </p>
-
-
-          <h3>
+<h3>
 
             U.S. Airline Operations
             &amp; Delay Intelligence
 
           </h3>
-
-
-          <p>
+<p>
 
             Operational reliability analysis built
             around real 2024 flight data, surfacing
@@ -670,97 +390,66 @@
             in a recruiter-friendly dashboard.
 
           </p>
-
-
-          <div class="project-meta">
-
-
-            <div>
-
-              <small>
+<div class="project-meta">
+<div>
+<small>
                 Tools
               </small>
-
-              <strong>
+<strong>
                 Tableau · Data Cleaning · Analysis
               </strong>
-
-            </div>
-
-
-            <div>
-
-              <small>
+</div>
+<div>
+<small>
                 Dataset
               </small>
-
-              <strong>
+<strong>
                 10,000-flight sample
               </strong>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <!-- OTHER PROJECTS -->
-
-      <div class="project-grid">
-
-
-        <article class="project-card reveal">
-
-          <p class="project-no">
+</div>
+</div>
+</div>
+<span class="project-cta">View Case Study <b>↗</b></span>
+</a>
+<!-- OTHER PROJECTS -->
+<div class="project-grid">
+<a aria-label="Open E-commerce Sales case study" class="project-card project-link reveal" href="project-ecommerce.html">
+<div class="project-thumb">
+<img alt="E-commerce Sales Performance dashboard overview" decoding="async" draggable="false" height="1278" loading="lazy" src="assets/ecommerce-overview.webp" width="1928"/>
+</div>
+<p class="project-no">
             02 / DATA
           </p>
-
-
-          <h3>
+<h3>
             E-commerce Sales Performance
           </h3>
-
-
-          <p>
+<p>
 
             Large-scale retail analysis turning
             more than one million raw transaction
-            rows into customer, revenue, return,
+            rows into revenue, return, customer,
             and segmentation insights.
 
           </p>
-
-
-          <div class="chips">
-
-            <span>Python</span>
-            <span>SQL</span>
-            <span>Tableau</span>
-            <span>RFM</span>
-
-          </div>
-
-        </article>
-
-
-        <article
-          class="project-card reveal delay-1"
-        >
-
-          <p class="project-no">
+<div class="chips">
+<span>Python</span>
+<span>SQL</span>
+<span>Tableau</span>
+<span>RFM</span>
+</div>
+<span class="project-cta">View Case Study <b>↗</b></span>
+</a>
+<a aria-label="Open Kang Parkir Simulator case study" class="project-card project-link reveal delay-1" href="project-kang-parkir.html">
+<div class="project-thumb">
+<img alt="Kang Parkir Simulator key artwork" decoding="async" draggable="false" height="941" loading="lazy" src="assets/kang-parkir-simulator.webp" width="1672"/>
+</div>
+<p class="project-no">
             03 / BUILD
           </p>
-
-
-          <h3>
+<h3>
             Kang Parkir Simulator
           </h3>
-
-
-          <p>
+<p>
 
             A systems-heavy Roblox game project
             featuring parking loops, progression,
@@ -768,232 +457,195 @@
             and responsive UI.
 
           </p>
-
-
-          <div class="chips">
-
-            <span>Lua</span>
-            <span>Systems</span>
-            <span>UX</span>
-            <span>Game Design</span>
-
-          </div>
-
-        </article>
-
-
-        <article
-          class="project-card reveal delay-2"
-        >
-
-          <p class="project-no">
+<div class="chips">
+<span>Lua</span>
+<span>Systems</span>
+<span>UX</span>
+<span>Game Design</span>
+</div>
+<span class="project-cta">View Case Study <b>↗</b></span>
+</a>
+<a aria-label="Open Suicide Detection Research case study" class="project-card project-link reveal delay-2" href="project-research.html"><div class="project-thumb project-thumb--research"><div aria-hidden="true" class="research-thumb"><span>CNN</span><i>+</i><span>GRU</span><small>NLP / IEEE ICITCOM 2025</small></div></div>
+<p class="project-no">
             04 / AI
           </p>
-
-
-          <h3>
+<h3>
             Suicide Detection Research
           </h3>
-
-
-          <p>
+<p>
 
             Academic work exploring a hybrid CNN–GRU
             text classification approach with feature
             expansion and feature enhancement.
 
           </p>
-
-
-          <div class="chips">
-
-            <span>NLP</span>
-            <span>CNN</span>
-            <span>GRU</span>
-            <span>Research</span>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
+<div class="chips">
+<span>NLP</span>
+<span>CNN</span>
+<span>GRU</span>
+<span>Research</span>
+</div>
+<span class="project-cta">View Case Study <b>↗</b></span>
+</a>
+</div>
+</section>
+<!-- ===================================================
          ARCHIVE
     ==================================================== -->
-
-    <section
-      id="archive"
-      class="archive section-pad"
-    >
-
-      <div class="section-heading reveal">
-
-        <p class="section-kicker">
+<section class="archive section-pad" id="archive">
+<div class="section-heading reveal">
+<p class="section-kicker">
           Chapter IV
         </p>
-
-        <h2>
+<h2>
           Archive
         </h2>
-
-        <p>
-          Fragments that shaped how I work.
+<p>
+          Selected records in research, leadership, and verified credentials.
         </p>
-
-      </div>
-
-
-      <div class="archive-grid">
-
-
-        <article class="archive-card reveal">
-
-          <span>
+</div>
+<div class="archive-grid">
+<article class="archive-card reveal">
+<span>
             Research
           </span>
-
-          <h3>
+<h3>
             Hybrid CNN + GRU Publication
           </h3>
-
-          <p>
+<p>
 
             Applied machine-learning research
             in text classification and
             feature engineering.
 
           </p>
-
-        </article>
-
-
-        <article
-          class="archive-card reveal delay-1"
-        >
-
-          <span>
+</article>
+<article class="archive-card reveal delay-1">
+<span>
             Leadership
           </span>
-
-          <h3>
+<h3>
             Tel-U Esports
           </h3>
-
-          <p>
+<p>
 
             Led and contributed to more than
             20 community events and
             sponsor-backed activities.
 
           </p>
-
-        </article>
-
-
-        <article
-          class="archive-card reveal delay-2"
-        >
-
-          <span>
-            Certification
-          </span>
-
-          <h3>
-            Professional Communication
-          </h3>
-
-          <p>
-
-            Critical Career Skills certification
-            issued by Certiport / Pearson VUE.
-
-          </p>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
+</article>
+</div>
+<!-- CERTIFICATION CAROUSEL / kept inside Archive, no new nav section -->
+<div aria-label="Professional certifications" class="credential-library reveal">
+<div class="credential-library-head">
+<div>
+<p class="section-kicker">Verified Credentials</p>
+<h3>Certifications</h3>
+<p>Drag, swipe, or use the arrows to browse verified credentials.</p>
+</div>
+<div aria-label="Certification carousel controls" class="credential-controls">
+<button aria-label="Previous certification" class="credential-arrow credential-arrow--prev" type="button">←</button>
+<button aria-label="Next certification" class="credential-arrow credential-arrow--next" type="button">→</button>
+</div>
+</div>
+<div class="credential-track" tabindex="0">
+<article class="credential-card">
+<div class="credential-preview">
+<img alt="TÜV Rheinland Certified Big Data Analyst certificate" decoding="async" draggable="false" height="2105" loading="lazy" src="assets/cert-big-data.webp" width="1488"/>
+</div>
+<div class="credential-body">
+<p class="credential-index">01 / DATA</p>
+<h4>Certified Big Data Analyst</h4>
+<p class="credential-issuer">TÜV Rheinland Group</p>
+<p class="credential-dates">Issued Oct 2024 · Expires Oct 2027</p>
+<p class="credential-id">Credential ID <strong>69408648560610</strong></p>
+<a class="credential-link" href="https://www.certipedia.com/quality_marks/0217501188?locale=en" rel="noreferrer" target="_blank">View credential <b>↗</b></a>
+</div>
+</article>
+<article class="credential-card">
+<div class="credential-preview">
+<img alt="Microsoft Certified Azure AI Fundamentals certificate" decoding="async" draggable="false" height="1530" loading="lazy" src="assets/cert-microsoft-azure-ai.webp" width="1980"/>
+</div>
+<div class="credential-body">
+<p class="credential-index">02 / AI</p>
+<h4>Microsoft Certified: Azure AI Fundamentals</h4>
+<p class="credential-issuer">Microsoft</p>
+<p class="credential-dates">Issued Feb 2025 · Expires Feb 2027</p>
+<p class="credential-id">Verification code <strong>wCzSF-48DB</strong></p>
+<a class="credential-link" href="https://www.credly.com/badges/93d423b5-74e3-4f14-a805-456a40103553" rel="noreferrer" target="_blank">View credential <b>↗</b></a>
+</div>
+</article>
+<article class="credential-card">
+<div class="credential-preview">
+<img alt="Meta Certified Digital Marketing Associate certificate" decoding="async" draggable="false" height="1530" loading="lazy" src="assets/cert-meta-digital-marketing.webp" width="1980"/>
+</div>
+<div class="credential-body">
+<p class="credential-index">03 / DIGITAL</p>
+<h4>Meta Certified Digital Marketing Associate</h4>
+<p class="credential-issuer">Meta</p>
+<p class="credential-dates">Issued Feb 2025 · Expires Feb 2027</p>
+<p class="credential-id">Verification code <strong>mbKQ-Dkbc</strong></p>
+<a class="credential-link" href="https://www.credly.com/badges/92adcce2-b464-4208-9ae1-498c9eb1e347" rel="noreferrer" target="_blank">View credential <b>↗</b></a>
+</div>
+</article>
+<article class="credential-card">
+<div class="credential-preview">
+<img alt="Critical Career Skills Professional Communication certificate" decoding="async" draggable="false" height="1530" loading="lazy" src="assets/cert-professional-communication.webp" width="1980"/>
+</div>
+<div class="credential-body">
+<p class="credential-index">04 / COMMUNICATION</p>
+<h4>Critical Career Skills - Professional Communication</h4>
+<p class="credential-issuer">Certiport - A Pearson VUE Business</p>
+<p class="credential-dates">Issued Feb 2025 · Expires Feb 2027</p>
+<p class="credential-id">Verification code <strong>wAK4F-2FBv</strong></p>
+<a class="credential-link" href="https://www.credly.com/badges/a69b6c61-b699-4bcf-8b62-12dc4ec30112" rel="noreferrer" target="_blank">View credential <b>↗</b></a>
+</div>
+</article>
+</div>
+<div aria-hidden="true" class="credential-progress"><span></span></div>
+</div>
+</section>
+<!-- ===================================================
          CONTACT
     ==================================================== -->
-
-    <section
-      id="contact"
-      class="contact section-pad section-dark"
-    >
-
-      <div class="contact-inner reveal">
-
-        <p class="section-kicker">
+<section class="contact section-pad section-dark" id="contact">
+<div class="contact-inner reveal">
+<p class="section-kicker">
           Final Chapter
         </p>
-
-
-        <h2>
+<h2>
           Have a question worth solving?
         </h2>
-
-
-        <p>
+<p>
 
           I'm interested in data, analytics,
           AI, business intelligence,
           and product-oriented technical work.
 
         </p>
-
-
-        <div class="contact-links">
-
-
-          <a
-            href="https://github.com/rizalhp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub ↗
-          </a>
-
-
-          <a
-            href="https://www.instagram.com/rizaalhp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Instagram ↗
-          </a>
-
-
-          <a
-            href="https://www.tiktok.com/@rizaalhp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            TikTok ↗
-          </a>
-
-        </div>
-
-
-        <div class="footer-mark">
+<div class="contact-links"><a href="mailto:rizal75hp@gmail.com">Email ↗</a><a href="https://www.linkedin.com/in/rizal-hidayat-putra-b570a9234" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a><a href="https://github.com/rizalhp" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="https://public.tableau.com/app/profile/rizal.hidayat.putra/vizzes" rel="noopener noreferrer" target="_blank">Tableau Public ↗</a><a download="Rizal_Hidayat_Putra_CV.pdf" href="assets/Rizal_Hidayat_Putra_CV.pdf">Download CV ↓</a></div>
+<div class="footer-mark">
           RHP
         </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <script src="script.js"></script>
-
+</div>
+<footer class="premium-footer reveal">
+<div class="footer-rule"><span></span><i></i><span></span></div>
+<p class="footer-end">END OF RECORD</p>
+<div class="footer-bottom">
+<div>
+<strong>ASPIK / RIZAL HIDAYAT PUTRA</strong>
+<small>Data · AI · Analytics · Build</small>
+</div>
+<div class="footer-coordinates">
+<span>ASP-26</span>
+<span>rizalhp-dev.vercel.app</span>
+</div>
+</div>
+</footer>
+</section>
+</main>
+<script src="transition.js"></script>
+<script src="common.js"></script>
 </body>
 </html>

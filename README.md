@@ -1,21 +1,40 @@
 # Rizal Hidayat Putra — Aspik Portfolio
 
-A lightweight, static portfolio inspired by dark Victorian game-interface aesthetics blended with modern data/tech presentation.
+Static recruiter-facing portfolio with a dark Victorian / modern data-tech visual language.
 
-## Preview locally
+## Current build
+- Scroll-triggered reversible welcome ↔ portfolio transition
+- Grey/white contour-mosaic dissolve matched to the supplied reference recording
+- Mouse parallax hero and ambient particles
+- Responsive navigation + active section state
+- Selectable/copyable text
+- Image drag + image context-menu protection only
+- One-time viewport reveal animations (content stays visible after reveal)
+- Selected project case studies with external proof links
+- Downloadable CV
+- Professional contact links (Email, LinkedIn, GitHub, Tableau Public)
+- WebP image optimization + lazy loading and intrinsic image dimensions
+- Open Graph / Twitter Card metadata, canonical URLs, favicon, sitemap, and robots.txt
+- Vercel cache and basic security headers
+- Reduced-motion support and visible keyboard focus states
 
-Open `index.html` directly, or run a local server:
-
+## Local preview
 ```bash
-python3 -m http.server 3000
+python3 -m http.server 8000
 ```
+Open `http://localhost:8000`.
 
-Then open `http://localhost:3000`.
+## Security
+Do not commit or share `.env*` files. They are ignored by `.gitignore` and are not included in the distributable ZIP.
 
-## Design principles
 
-- Native browser scrolling (no smooth-scroll hijacking)
-- Lightweight IntersectionObserver reveals
-- Responsive desktop/mobile layout
-- Original decorative system using CSS only
-- Focus on recruiter readability while retaining a distinct visual identity
+## Runtime structure
+
+- `styles.css` — consolidated visual system and responsive enhancements
+- `common.js` — shared navigation, reveals, cursor, particles, and carousel behavior
+- `transition.js` — homepage-only cinematic welcome transition
+- `assets/profile-emblem.webp` — lightweight header/loader artwork; full-resolution profile art is reserved for hero scenes
+
+## Performance notes
+
+The cinematic transition uses a reduced-density procedural field and throttled animation loop. Project detail pages do not load the homepage transition engine. Asset caching uses revalidation because production filenames are not content-hashed.

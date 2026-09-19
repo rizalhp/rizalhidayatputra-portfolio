@@ -2530,3 +2530,2418 @@ p:not(.section-kicker) {
   }
 
 }
+
+/* =========================================================
+   CONSOLIDATED ENHANCEMENTS (formerly fixes.css)
+   ========================================================= */
+
+/* =========================================================
+   ASPIK PORTFOLIO — FINAL FIXES
+========================================================= */
+
+
+/* =========================================================
+   CONTENT INTERACTION
+   Text stays selectable/copyable. Images are protected from drag/callout.
+========================================================= */
+
+html, body {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+img {
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+  image-rendering: auto !important;
+}
+
+::selection {
+  color: var(--ivory-2);
+  background: rgba(185, 144, 79, .34);
+}
+
+::-moz-selection {
+  color: var(--ivory-2);
+  background: rgba(185, 144, 79, .34);
+}
+
+/* =========================================================
+   KEEP LINKS CLICKABLE
+========================================================= */
+
+a,
+button {
+  pointer-events:
+    auto;
+}
+
+
+/* =========================================================
+   FORCE PNG IMAGE QUALITY
+========================================================= */
+
+.character-stage img {
+  width:
+    100% !important;
+
+  height:
+    100% !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  filter:
+    drop-shadow(
+      0
+      18px
+      38px
+      rgba(0, 0, 0, 0.35)
+    ) !important;
+
+  image-rendering:
+    auto !important;
+}
+
+
+.brand-mark img {
+  width:
+    100% !important;
+
+  height:
+    100% !important;
+
+  object-fit:
+    contain !important;
+
+  image-rendering:
+    auto !important;
+}
+
+
+.project-visual img {
+  filter:
+    none !important;
+
+  image-rendering:
+    auto !important;
+}
+
+
+/* =========================================================
+   CHARACTER TRANSPARENT STAGE
+========================================================= */
+
+.character-stage {
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(220, 193, 138, 0.12),
+      rgba(185, 144, 79, 0.04) 45%,
+      transparent 74%
+    ) !important;
+}
+
+
+/* =========================================================
+   SIGIL STACKING
+========================================================= */
+
+.sigil--outer {
+  z-index:
+    1;
+}
+
+
+.sigil--inner {
+  z-index:
+    2;
+}
+
+
+.sigil-quad {
+  z-index:
+    0;
+}
+
+
+.character-stage {
+  z-index:
+    4;
+}
+
+
+.character-caption {
+  z-index:
+    10;
+}
+
+
+/* =========================================================
+   LOOPING SCROLL REVEAL
+========================================================= */
+
+.reveal {
+  opacity:
+    0;
+
+  transform:
+    translateY(34px)
+    scale(0.985);
+
+  filter:
+    blur(3px);
+
+  transition:
+    opacity
+      0.72s
+      ease,
+    transform
+      0.84s
+      cubic-bezier(
+        0.2,
+        0.7,
+        0.2,
+        1
+      ),
+    filter
+      0.72s
+      ease;
+
+  will-change:
+    opacity,
+    transform,
+    filter;
+}
+
+
+.reveal.is-visible {
+  opacity:
+    1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  filter:
+    blur(0);
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.particles {
+  pointer-events:
+    none !important;
+}
+
+
+/* =========================================================
+   SMOOTHER GPU ANIMATIONS
+========================================================= */
+
+.sigil,
+.sigil-quad,
+.reveal,
+.project-visual img {
+  backface-visibility:
+    hidden;
+
+  -webkit-backface-visibility:
+    hidden;
+
+  transform-style:
+    preserve-3d;
+}
+
+
+/* =========================================================
+   PREVENT HORIZONTAL OVERFLOW
+========================================================= */
+
+html,
+body {
+  max-width:
+    100%;
+
+  overflow-x:
+    hidden;
+}
+
+
+/* =========================================================
+   MOBILE SAFETY
+========================================================= */
+
+@media
+(max-width: 760px) {
+
+  .character-panel {
+    overflow:
+      hidden;
+  }
+
+}
+
+/* =========================================================
+   V2 — CINEMATIC ENTRANCE
+========================================================= */
+body:not(.site-ready) { overflow: hidden; }
+.site-loader {
+  position: fixed; inset: 0; z-index: 9999;
+  display: grid; place-content: center; justify-items: center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(185,144,79,.15), transparent 30%),
+    #090806;
+  transition: opacity .7s ease, visibility .7s ease;
+}
+.site-loader::before,
+.site-loader::after {
+  content: ""; position: absolute; inset: 22px;
+  border: 1px solid rgba(220,193,138,.16); pointer-events: none;
+}
+.site-loader::after { inset: 34px; border-color: rgba(220,193,138,.06); }
+body.site-ready .site-loader { opacity: 0; visibility: hidden; }
+.loader-emblem {
+  width: 86px; height: 86px; display: grid; place-items: center;
+  border: 1px solid rgba(220,193,138,.35); border-radius: 50%;
+  animation: loaderPulse 1.7s ease-in-out infinite;
+}
+.loader-emblem img { width: 82%; height: 82%; object-fit: contain; }
+.loader-name { margin: 20px 0 5px; font-family: var(--serif); font-size: 30px; letter-spacing: .18em; color: var(--ivory-2); }
+.loader-subtitle { margin: 0; font-size: 8px; letter-spacing: .28em; color: #756b58; }
+.loader-track { margin-top: 24px; width: 190px; height: 1px; overflow: hidden; background: rgba(220,193,138,.12); }
+.loader-track span { display: block; width: 45%; height: 100%; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); animation: loaderSweep 1.05s ease-in-out infinite; }
+@keyframes loaderPulse { 50% { transform: scale(1.045); box-shadow: 0 0 45px rgba(185,144,79,.13); } }
+@keyframes loaderSweep { from { transform: translateX(-120%); } to { transform: translateX(330%); } }
+
+/* =========================================================
+   V2 — CUSTOM CURSOR
+========================================================= */
+.cursor-dot,
+.cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 9998;
+  pointer-events: none; border-radius: 50%;
+  opacity: 0; translate: -50% -50%;
+}
+.cursor-dot { width: 5px; height: 5px; background: var(--gold-2); box-shadow: 0 0 12px rgba(220,193,138,.55); }
+.cursor-ring {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(220,193,138,.48);
+  transition: width .22s ease, height .22s ease, border-color .22s ease, background .22s ease;
+}
+body.pointer-ready .cursor-dot,
+body.pointer-ready .cursor-ring { opacity: 1; }
+body.cursor-active .cursor-ring { width: 52px; height: 52px; border-color: var(--gold-2); background: rgba(185,144,79,.07); }
+body.cursor-active .cursor-dot { transform: scale(1.45); }
+@media (pointer: coarse), (max-width: 760px) { .cursor-dot, .cursor-ring { display: none !important; } }
+
+/* =========================================================
+   V2 — HERO PARALLAX
+========================================================= */
+[data-parallax] {
+  --parallax-x: 0px; --parallax-y: 0px;
+  translate: var(--parallax-x) var(--parallax-y);
+  transition: translate .18s cubic-bezier(.2,.7,.2,1);
+  will-change: translate;
+}
+
+/* =========================================================
+   V2 — ORNAMENTAL SECTION TRANSITIONS
+========================================================= */
+.profile,
+.experience,
+.projects,
+.archive,
+.contact { position: relative; }
+.profile::after,
+.experience::after,
+.projects::after,
+.archive::after {
+  content: ""; position: absolute; left: 7vw; right: 7vw; bottom: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,193,138,.14) 22%, rgba(220,193,138,.5) 50%, rgba(220,193,138,.14) 78%, transparent);
+  transform: scaleX(.12); opacity: .28; transition: transform 1.15s cubic-bezier(.2,.7,.2,1), opacity .8s ease;
+}
+.profile.section-in-view::after,
+.experience.section-in-view::after,
+.projects.section-in-view::after,
+.archive.section-in-view::after { transform: scaleX(1); opacity: 1; }
+.profile::before,
+.experience::before,
+.projects::before,
+.archive::before {
+  content: "◇"; position: absolute; left: 50%; bottom: -8px; z-index: 5; translate: -50% 0;
+  padding: 0 9px; background: var(--bg); color: rgba(220,193,138,.6); font-size: 12px;
+}
+.section-heading { position: relative; }
+.section-heading::after {
+  content: ""; display: block; width: 92px; height: 1px; margin-top: 25px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transform-origin: left; transform: scaleX(.25); transition: transform .8s ease;
+}
+.section-in-view .section-heading::after { transform: scaleX(1); }
+
+/* =========================================================
+   V2 — ACTIVE NAV
+========================================================= */
+.nav a { transition: color .25s ease, text-shadow .25s ease; }
+.nav a.active { color: var(--gold-2); text-shadow: 0 0 20px rgba(220,193,138,.16); }
+.nav a.active::after { transform: scaleX(1); }
+
+/* =========================================================
+   V2 — PROJECT INTERACTION
+========================================================= */
+.project-link { color: inherit; cursor: pointer; }
+.featured-project.project-link,
+.project-card.project-link {
+  transition: transform .42s cubic-bezier(.2,.7,.2,1), border-color .42s ease, box-shadow .42s ease, background .42s ease;
+}
+.featured-project.project-link:hover {
+  transform: translateY(-7px);
+  border-color: rgba(220,193,138,.54);
+  box-shadow: 0 32px 85px rgba(0,0,0,.34), 0 0 0 1px rgba(220,193,138,.05);
+}
+.project-card.project-link:hover {
+  transform: translateY(-8px);
+  border-color: rgba(220,193,138,.55);
+  background: linear-gradient(145deg, rgba(45,38,26,.82), rgba(13,12,10,.9));
+  box-shadow: 0 24px 55px rgba(0,0,0,.28), inset 0 0 42px rgba(185,144,79,.025);
+}
+.project-card.project-link h3 { transition: color .3s ease; }
+.project-card.project-link:hover h3 { color: var(--gold-2); }
+.project-cta {
+  display: inline-flex; align-items: center; gap: 10px; width: fit-content;
+  margin-top: 24px; padding-top: 12px; border-top: 1px solid rgba(220,193,138,.15);
+  color: var(--gold-2); font-size: 9px; text-transform: uppercase; letter-spacing: .17em;
+}
+.project-card .project-cta { margin-top: auto; padding-top: 18px; }
+.project-cta b { font-size: 14px; font-weight: 400; transition: transform .25s ease; }
+.project-link:hover .project-cta b { transform: translate(3px,-3px); }
+
+/* =========================================================
+   V2 — PREMIUM FOOTER
+========================================================= */
+.premium-footer { width: min(1150px, 100%); margin: 95px auto 0; text-align: left; }
+.footer-rule { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+.footer-rule span { height: 1px; background: linear-gradient(90deg, transparent, rgba(220,193,138,.35)); }
+.footer-rule span:last-child { background: linear-gradient(90deg, rgba(220,193,138,.35), transparent); }
+.footer-rule i { width: 7px; height: 7px; border: 1px solid rgba(220,193,138,.55); transform: rotate(45deg); }
+.footer-end { margin: 22px 0 42px !important; text-align: center; color: #786f60 !important; font-size: 8px; letter-spacing: .34em; }
+.footer-bottom { display: flex; justify-content: space-between; gap: 30px; align-items: end; padding-bottom: 12px; }
+.footer-bottom strong { display: block; font-family: var(--serif); font-size: 18px; letter-spacing: .07em; color: var(--ivory-2); }
+.footer-bottom small { display: block; margin-top: 7px; color: #71695c; text-transform: uppercase; font-size: 8px; letter-spacing: .2em; }
+.footer-coordinates { display: flex; gap: 28px; color: #71695c; text-transform: uppercase; font-size: 8px; letter-spacing: .18em; }
+
+/* =========================================================
+   V2 — PROJECT DETAIL PAGES
+========================================================= */
+.project-page { background: radial-gradient(circle at 70% 0%, #241d12 0%, #12100c 28%, #090806 80%); }
+.project-page .site-header { position: fixed; }
+.project-detail { padding-top: 150px; }
+.project-detail-hero { min-height: 72vh; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: clamp(30px,7vw,110px); }
+.project-detail-copy .project-no { margin-bottom: 16px; }
+.project-detail-copy h1 { margin: 0; max-width: 850px; font-family: var(--serif); font-weight: 400; font-size: clamp(58px,8.5vw,134px); line-height: .86; letter-spacing: -.055em; color: var(--ivory-2); }
+.project-detail-copy .lead { max-width: 690px; margin-top: 32px; color: #a99e8c; font-size: 16px; line-height: 1.8; }
+.project-detail-meta { display: grid; gap: 12px; }
+.project-detail-meta div { padding: 20px 0; border-top: 1px solid var(--line-soft); }
+.project-detail-meta small { display: block; color: #746c60; font-size: 8px; text-transform: uppercase; letter-spacing: .18em; }
+.project-detail-meta strong { display: block; margin-top: 6px; font-family: var(--serif); font-weight: 400; font-size: 21px; color: var(--ivory-2); }
+.case-visual { position: relative; margin: 45px 0 0; border: 1px solid var(--line); overflow: hidden; background: #11100d; box-shadow: 0 32px 90px rgba(0,0,0,.4); }
+.case-visual img { width: 100%; height: auto; object-fit: contain; }
+.case-visual::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 80px rgba(0,0,0,.16); }
+.case-section { display: grid; grid-template-columns: .42fr 1fr; gap: clamp(35px,8vw,130px); padding: 105px 0; border-top: 1px solid var(--line-soft); }
+.case-section-label { color: var(--gold); font-size: 9px; text-transform: uppercase; letter-spacing: .22em; }
+.case-section h2 { margin: 0 0 25px; font-family: var(--serif); font-weight: 400; font-size: clamp(38px,5vw,70px); color: var(--ivory-2); }
+.case-section p { color: #9c9282; line-height: 1.85; }
+.case-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 34px; }
+.case-stat { min-height: 150px; padding: 24px; border: 1px solid var(--line); background: linear-gradient(145deg,rgba(30,27,21,.7),rgba(13,12,10,.88)); }
+.case-stat small { color: #746c60; text-transform: uppercase; font-size: 8px; letter-spacing: .17em; }
+.case-stat strong { display: block; margin-top: 17px; font-family: var(--serif); font-weight: 400; font-size: clamp(26px,3vw,42px); color: var(--gold-2); }
+.case-process { display: grid; gap: 12px; margin-top: 30px; }
+.case-process div { display: grid; grid-template-columns: 54px 1fr; gap: 18px; padding: 20px 0; border-top: 1px solid var(--line-soft); }
+.case-process span { color: var(--gold); font-family: var(--serif); font-size: 21px; }
+.case-process strong { display: block; color: var(--ivory-2); font-family: var(--serif); font-size: 21px; font-weight: 400; }
+.case-process p { margin: 6px 0 0; }
+.record-visual { min-height: 460px; display: grid; place-items: center; padding: 60px; text-align: center; background: radial-gradient(circle, rgba(185,144,79,.1), transparent 55%); border: 1px solid var(--line); }
+.record-visual strong { font-family: var(--serif); font-size: clamp(80px,15vw,220px); font-weight: 400; color: rgba(220,193,138,.11); letter-spacing: -.08em; }
+.record-visual p { position: absolute; color: var(--gold-2); text-transform: uppercase; font-size: 9px; letter-spacing: .25em; }
+.project-back { display: inline-flex; gap: 10px; align-items: center; margin-bottom: 35px; color: #8c8374; text-transform: uppercase; font-size: 9px; letter-spacing: .18em; }
+.project-back:hover { color: var(--gold-2); }
+.next-record { display: flex; justify-content: space-between; align-items: end; gap: 30px; padding: 80px 0 20px; border-top: 1px solid var(--line); }
+.next-record small { color: #756d60; text-transform: uppercase; font-size: 8px; letter-spacing: .18em; }
+.next-record a { font-family: var(--serif); font-size: clamp(30px,4.5vw,64px); color: var(--ivory-2); }
+.next-record a:hover { color: var(--gold-2); }
+
+@media (max-width: 900px) {
+  .project-detail-hero, .case-section { grid-template-columns: 1fr; }
+  .project-detail-hero { min-height: auto; }
+  .case-grid { grid-template-columns: 1fr; }
+  .footer-bottom { align-items: start; flex-direction: column; }
+}
+
+/* =========================================================
+   V2 — FINAL POLISH / LAYOUT SAFETY
+========================================================= */
+.featured-project.project-link { position: relative; }
+.featured-project.project-link > .project-cta {
+  position: absolute;
+  right: 56px;
+  bottom: 30px;
+  z-index: 6;
+  margin: 0;
+}
+.project-card.project-link .chips { margin-top: 18px; }
+.project-card.project-link .project-cta { margin-top: auto; }
+.project-card.project-link { overflow: hidden; }
+.project-card.project-link > * { position: relative; z-index: 2; }
+.project-card.project-link::after {
+  position: absolute;
+  right: 18px;
+  top: 4px;
+  z-index: 0;
+  font-family: var(--serif);
+  font-size: 118px;
+  line-height: 1;
+  color: rgba(220,193,138,.035);
+  pointer-events: none;
+  transition: color .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.project-grid .project-card:nth-child(1)::after { content: "02"; }
+.project-grid .project-card:nth-child(2)::after { content: "03"; }
+.project-grid .project-card:nth-child(3)::after { content: "04"; }
+.project-card.project-link:hover::after { color: rgba(220,193,138,.07); transform: translate(-6px,5px); }
+.record-visual { position: relative; overflow: hidden; }
+
+@media (pointer: fine) {
+  body.pointer-ready,
+  body.pointer-ready a,
+  body.pointer-ready button { cursor: none !important; }
+}
+
+@media (max-width: 760px) {
+  .featured-project.project-link > .project-cta {
+    position: static;
+    margin: 0 34px 30px;
+  }
+  .premium-footer { margin-top: 70px; }
+  .footer-coordinates { flex-wrap: wrap; gap: 12px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-loader, [data-parallax], .project-link, .section-heading::after,
+  .profile::after, .experience::after, .projects::after, .archive::after {
+    transition: none !important;
+  }
+  .loader-emblem, .loader-track span { animation: none !important; }
+}
+
+/* =========================================================
+   V2.1 — PROJECT IMAGES
+========================================================= */
+.project-card.project-link {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-thumb {
+  position: relative;
+  margin: -40px -40px 24px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(220, 193, 138, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.08)),
+    #15120d;
+}
+
+.project-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.28) 100%);
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .35s ease;
+}
+
+.project-card.project-link:hover .project-thumb img {
+  transform: scale(1.035);
+  filter: saturate(1.05);
+}
+
+.case-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.case-gallery-item {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(29, 25, 19, 0.76), rgba(13, 12, 10, 0.92));
+  box-shadow: 0 22px 48px rgba(0,0,0,.22);
+}
+
+.case-gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.case-gallery-item figcaption {
+  padding: 14px 16px 15px;
+  color: var(--gold-2);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.case-visual--poster img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .project-thumb {
+    margin: -32px -32px 20px;
+  }
+
+  .case-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   V2.2 — CERTIFICATION CAROUSEL (INSIDE ARCHIVE)
+========================================================= */
+.credential-library {
+  margin-top: 78px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+
+.credential-library-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.credential-library-head h3 {
+  margin: 8px 0 8px;
+  color: var(--ivory-2);
+  font-family: var(--serif);
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 400;
+  letter-spacing: -.03em;
+}
+
+.credential-library-head > div:first-child > p:last-child {
+  margin: 0;
+  color: #8f8677;
+  line-height: 1.7;
+}
+
+.credential-controls {
+  display: flex;
+  gap: 9px;
+  flex: 0 0 auto;
+}
+
+.credential-arrow {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(220,193,138,.28);
+  background: linear-gradient(145deg, rgba(31,27,20,.8), rgba(13,12,10,.9));
+  color: var(--gold-2);
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.credential-arrow:hover {
+  transform: translateY(-2px);
+  border-color: rgba(220,193,138,.6);
+  background: rgba(185,144,79,.1);
+}
+
+.credential-arrow:disabled {
+  opacity: .28;
+  transform: none;
+}
+
+.credential-track {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 2px 1px 14px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.credential-track::-webkit-scrollbar {
+  display: none;
+}
+
+.credential-card {
+  flex: 0 0 clamp(330px, 39vw, 520px);
+  scroll-snap-align: start;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(30,27,21,.78), rgba(13,12,10,.92));
+  box-shadow: 0 22px 52px rgba(0,0,0,.2);
+  transition: transform .42s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;
+}
+
+.credential-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(220,193,138,.5);
+  box-shadow: 0 28px 70px rgba(0,0,0,.28);
+}
+
+.credential-preview {
+  height: clamp(245px, 26vw, 340px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 14px;
+  border-bottom: 1px solid var(--line-soft);
+  background: #f0eee9;
+}
+
+.credential-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: none !important;
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+}
+
+.credential-card:hover .credential-preview img {
+  transform: scale(1.012);
+}
+
+.credential-body {
+  min-height: 285px;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 28px 28px;
+}
+
+.credential-index {
+  margin: 0 0 11px;
+  color: var(--gold);
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+}
+
+.credential-body h4 {
+  margin: 0 0 10px;
+  color: var(--ivory-2);
+  font-family: var(--serif);
+  font-size: clamp(25px, 2.4vw, 34px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.credential-issuer {
+  margin: 0 0 22px;
+  color: #b8aa91;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.credential-dates,
+.credential-id {
+  margin: 0;
+  padding: 11px 0;
+  border-top: 1px solid rgba(220,193,138,.1);
+  color: #847b6d;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.credential-id strong {
+  color: #b7aa92;
+  font-weight: 500;
+}
+
+.credential-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  margin-top: auto;
+  padding-top: 17px;
+  border-top: 1px solid rgba(220,193,138,.17);
+  color: var(--gold-2);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .17em;
+}
+
+.credential-link b {
+  font-size: 13px;
+  font-weight: 400;
+  transition: transform .25s ease;
+}
+
+.credential-link:hover b {
+  transform: translate(3px,-3px);
+}
+
+.credential-progress {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  margin-top: 16px;
+  background: rgba(220,193,138,.12);
+  overflow: hidden;
+}
+
+.credential-progress span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 25%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-2));
+  transform-origin: left center;
+  transition: width .25s ease, transform .25s ease;
+}
+
+@media (max-width: 760px) {
+  .credential-library {
+    margin-top: 58px;
+  }
+
+  .credential-library-head {
+    align-items: start;
+  }
+
+  .credential-card {
+    flex-basis: 88vw;
+  }
+
+  .credential-preview {
+    height: 260px;
+  }
+
+  .credential-body {
+    min-height: 270px;
+    padding: 24px;
+  }
+}
+
+/* =========================================================
+   V2.5 — UI / UX POLISH
+========================================================= */
+
+/* Fixed navigation should never cover chapter headings. */
+section[id] {
+  scroll-margin-top: 112px;
+}
+
+/* The cinematic loader is a first-view experience only. */
+html.loader-seen .site-loader {
+  display: none !important;
+}
+
+html.loader-seen body:not(.site-ready) {
+  overflow: auto;
+}
+
+/* Softer looping reveal: blur is reserved for the first entrance.
+   Returning to an already-seen record uses only a small fade/slide. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: none;
+  transition:
+    opacity .58s ease,
+    transform .68s cubic-bezier(.2,.7,.2,1),
+    filter .58s ease;
+  will-change: opacity, transform;
+}
+
+.reveal:not(.has-revealed) {
+  transform: translateY(30px) scale(.992);
+  filter: blur(2px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Project imagery now dissolves into the card instead of ending as a
+   hard rectangular thumbnail. */
+.project-thumb {
+  margin: -40px -40px -2px;
+  min-height: 190px;
+  aspect-ratio: 16 / 9;
+  border-bottom: 0;
+  background: #15120d;
+}
+
+.project-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,
+      rgba(13,12,10,0) 35%,
+      rgba(13,12,10,.12) 55%,
+      rgba(13,12,10,.70) 82%,
+      rgba(13,12,10,.98) 100%),
+    linear-gradient(90deg, rgba(185,144,79,.035), transparent 38%);
+}
+
+.project-thumb::after {
+  background: radial-gradient(circle at 70% 20%, rgba(220,193,138,.10), transparent 40%);
+}
+
+.project-thumb img {
+  transform: scale(1.005);
+  filter: brightness(.94) saturate(.96);
+}
+
+.project-card.project-link:hover .project-thumb img {
+  transform: scale(1.045);
+  filter: brightness(1) saturate(1.06);
+}
+
+.project-card.project-link > .project-no {
+  margin-top: -2px;
+  padding-top: 14px;
+}
+
+/* Archive is intentionally compact so the credentials remain the focal
+   point instead of competing with three large summary cards. */
+.archive .section-heading {
+  margin-bottom: 42px;
+}
+
+.archive-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.archive-card {
+  min-height: 0;
+  padding: 24px 26px;
+}
+
+.archive-card h3 {
+  margin: 18px 0 8px;
+  font-size: clamp(22px, 2.2vw, 30px);
+}
+
+.archive-card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.credential-library {
+  margin-top: 48px;
+  padding-top: 30px;
+}
+
+/* Certification carousel: one dominant record plus a visible peek of the
+   next one. The rail is directly draggable with mouse or touch. */
+.credential-track {
+  gap: 18px;
+  padding: 2px 16% 18px 1px;
+  cursor: grab;
+  touch-action: pan-y;
+  scroll-snap-type: x mandatory;
+}
+
+.credential-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+body.credential-hover .cursor-dot,
+body.credential-hover .cursor-ring {
+  opacity: 0 !important;
+}
+
+.credential-card {
+  flex: 0 0 82%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(310px, .92fr);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.credential-preview {
+  height: auto;
+  min-height: 390px;
+  border-bottom: 0;
+  border-right: 1px solid var(--line-soft);
+}
+
+.credential-body {
+  min-height: 390px;
+  padding: 30px 30px 28px;
+}
+
+.credential-library-head > div:first-child > p:last-child::after {
+  content: "  ·  DRAG / SWIPE";
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: .14em;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .project-thumb {
+    margin: -32px -32px -2px;
+  }
+
+  .archive-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .credential-track {
+    padding-right: 10vw;
+  }
+
+  .credential-card {
+    flex-basis: 88vw;
+    grid-template-columns: 1fr;
+  }
+
+  .credential-preview {
+    min-height: 280px;
+    height: 280px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .credential-body {
+    min-height: 270px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+
+  .credential-library-head {
+    gap: 16px;
+  }
+
+  .credential-library-head > div:first-child > p:last-child::after {
+    display: block;
+    margin-top: 7px;
+  }
+}
+
+
+/* =========================================================
+   V2.6 — RECRUITER / ACCESSIBILITY / PERFORMANCE POLISH
+========================================================= */
+
+/* Keyboard users should always be able to see focus. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold-2);
+  outline-offset: 4px;
+}
+
+/* Keep compact metadata readable on mobile and improve muted contrast. */
+.brand-copy small,
+.project-no,
+.section-kicker,
+.case-section-label,
+.project-back,
+.record-visual p,
+.credential-index,
+.credential-link,
+.case-gallery-item figcaption {
+  font-size: max(10px, .625rem);
+}
+
+.project-detail-meta small,
+.case-stat small,
+.next-record small,
+.footer-end,
+.footer-bottom small,
+.footer-coordinates,
+.loader-subtitle,
+.credential-library-head > div:first-child > p:last-child::after {
+  font-size: max(9px, .5625rem);
+}
+
+.project-detail-meta small,
+.case-stat small,
+.next-record small,
+.footer-bottom small,
+.footer-coordinates,
+.footer-end {
+  color: #9f9688 !important;
+}
+
+/* Professional role line can breathe without dominating the hero. */
+.hero .eyebrow {
+  max-width: 760px;
+}
+
+.hero-actions {
+  flex-wrap: wrap;
+}
+
+/* Consistent visual treatment for research card without a fake screenshot. */
+.project-thumb--research {
+  display: grid;
+  place-items: center;
+}
+
+.research-thumb {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 28px);
+  background:
+    radial-gradient(circle at 50% 40%, rgba(185,144,79,.16), transparent 36%),
+    linear-gradient(145deg, #17130e, #0d0c0a 72%);
+}
+
+.research-thumb span {
+  display: grid;
+  place-items: center;
+  width: clamp(72px, 8vw, 104px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(220,193,138,.35);
+  border-radius: 50%;
+  color: var(--ivory-2);
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 42px);
+  box-shadow: inset 0 0 35px rgba(185,144,79,.06), 0 18px 50px rgba(0,0,0,.26);
+}
+
+.research-thumb i {
+  color: var(--gold);
+  font-style: normal;
+  font-size: 22px;
+}
+
+.research-thumb small {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  text-align: center;
+  color: #a79d8d;
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.case-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 8px;
+}
+
+.contact-links {
+  flex-wrap: wrap;
+}
+
+/* Avoid hidden content entirely when reduced-motion is requested. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero .eyebrow {
+    line-height: 1.7;
+    letter-spacing: .13em;
+  }
+
+  .hero-actions .button {
+    min-height: 46px;
+  }
+
+  .research-thumb small {
+    font-size: 8px;
+    letter-spacing: .12em;
+  }
+}
+
+/* =========================================================
+   SCROLL-DRIVEN MOSAIC WELCOME <-> PORTFOLIO TRANSITION
+   One reversible timeline. A wheel/swipe gesture starts the
+   timeline; the same frames are used in reverse at main top.
+========================================================= */
+
+html.intro-locked,
+body.intro-locked {
+  height: 100%;
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+body.transition-managed {
+  --portfolio-opacity: 0;
+  --portfolio-shift: 26px;
+  --welcome-opacity: 1;
+}
+
+/* Portfolio is already mounted beneath the cinematic layers so
+   the final phase can dissolve into it instead of changing pages. */
+body.transition-managed .site-header,
+body.transition-managed main {
+  opacity: var(--portfolio-opacity) !important;
+  visibility: visible !important;
+  transform: translate3d(0, var(--portfolio-shift), 0) !important;
+  pointer-events: none;
+  transition: none !important;
+  will-change: opacity, transform;
+}
+
+body.transition-managed.portfolio-active .site-header,
+body.transition-managed.portfolio-active main {
+  pointer-events: auto;
+}
+
+body.transition-managed.intro-transitioning .site-header,
+body.transition-managed.intro-transitioning main {
+  pointer-events: none !important;
+}
+
+/* ------------------------- WELCOME ------------------------- */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--ivory-2);
+  background:
+    radial-gradient(circle at 50% 33%, rgba(214, 173, 97, .22), transparent 24%),
+    radial-gradient(circle at 76% 26%, rgba(121, 71, 38, .25), transparent 29%),
+    linear-gradient(180deg, #17120c 0%, #0e0b08 55%, #090806 100%);
+  opacity: var(--welcome-opacity, 1);
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateZ(0);
+  transition: none !important;
+  will-change: opacity, filter;
+}
+
+.welcome-screen.is-hidden {
+  opacity: 0 !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.welcome-backdrop,
+.welcome-aura,
+.welcome-grid {
+  position: absolute;
+  inset: 0;
+}
+
+.welcome-backdrop {
+  z-index: -3;
+  overflow: hidden;
+}
+
+.welcome-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background:
+    linear-gradient(90deg, rgba(7,6,5,.90) 0%, rgba(9,7,5,.52) 27%, rgba(9,7,5,.08) 52%, rgba(8,7,5,.42) 82%, rgba(7,6,5,.75) 100%),
+    linear-gradient(180deg, rgba(7,6,5,.52), transparent 24%, transparent 66%, rgba(7,6,5,.86));
+  pointer-events: none;
+}
+
+.welcome-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background-image:
+    radial-gradient(circle at 18% 27%, rgba(246,224,179,.58) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 73% 15%, rgba(246,224,179,.45) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 86% 56%, rgba(246,224,179,.34) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 34% 72%, rgba(246,224,179,.32) 0 1px, transparent 1.5px);
+  background-size: 210px 190px, 290px 260px, 340px 310px, 250px 230px;
+  opacity: .32;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.welcome-art {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.welcome-art--back {
+  inset: -17%;
+  width: 134%;
+  height: 134%;
+  object-fit: cover;
+  object-position: 55% 45%;
+  opacity: .20;
+  filter: blur(12px) saturate(.72) sepia(.18);
+  transform: scale(1.08);
+}
+
+.welcome-art--main {
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  width: min(79vw, 1120px);
+  height: min(86vh, 920px);
+  object-fit: contain;
+  transform: translate(-40%, -47%) scale(1.05);
+  filter:
+    drop-shadow(0 38px 70px rgba(0,0,0,.62))
+    drop-shadow(0 0 70px rgba(185,144,79,.12));
+  animation: welcomeBreath 7s ease-in-out infinite alternate;
+}
+
+.welcome-aura {
+  z-index: 1;
+  inset: 9% 12% 3%;
+  background:
+    radial-gradient(ellipse at 57% 46%, rgba(230,193,119,.22) 0%, rgba(185,144,79,.08) 23%, transparent 56%),
+    radial-gradient(ellipse at 61% 70%, rgba(255,240,206,.06), transparent 45%);
+  filter: blur(7px);
+}
+
+.welcome-grid {
+  z-index: 3;
+  inset: 94px 34px 28px;
+  border: 1px solid rgba(220,193,138,.14);
+  background:
+    linear-gradient(90deg, transparent calc(25% - .5px), rgba(220,193,138,.045) 25%, transparent calc(25% + .5px)),
+    linear-gradient(90deg, transparent calc(75% - .5px), rgba(220,193,138,.045) 75%, transparent calc(75% + .5px));
+  pointer-events: none;
+}
+
+.welcome-grid::before,
+.welcome-grid::after {
+  content: "";
+  position: absolute;
+  background: rgba(220,193,138,.07);
+}
+
+.welcome-grid::before {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.welcome-grid::after {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.welcome-topbar {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 94px;
+  padding: 0 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(220,193,138,.09);
+}
+
+.welcome-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+}
+
+.welcome-brand-mark {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(220,193,138,.42);
+  border-radius: 50%;
+  color: rgba(240,224,190,.88);
+  font-family: var(--serif);
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+.welcome-brand > span:last-child {
+  display: grid;
+  gap: 2px;
+}
+
+.welcome-brand strong {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .22em;
+}
+
+.welcome-brand small,
+.welcome-meta {
+  color: rgba(220,193,138,.51);
+  font-size: 7px;
+  letter-spacing: .19em;
+  text-transform: uppercase;
+}
+
+.welcome-meta {
+  display: flex;
+  gap: 30px;
+}
+
+.welcome-copy {
+  position: absolute;
+  z-index: 8;
+  left: clamp(36px, 7.5vw, 122px);
+  bottom: clamp(124px, 16vh, 178px);
+  width: min(620px, 52vw);
+}
+
+.welcome-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 15px;
+  color: rgba(236,221,193,.63);
+  font-size: 8px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.welcome-kicker span {
+  display: block;
+  width: 44px;
+  height: 1px;
+  background: rgba(220,193,138,.52);
+}
+
+.welcome-copy h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(58px, 6.8vw, 114px);
+  font-weight: 400;
+  line-height: .82;
+  letter-spacing: -.055em;
+  text-shadow: 0 8px 40px rgba(0,0,0,.42);
+}
+
+.welcome-copy h1 em {
+  display: block;
+  margin-left: .44em;
+  color: rgba(230,204,151,.82);
+  font-weight: 400;
+}
+
+.welcome-copy > p:last-child {
+  margin: 23px 0 0 .25em;
+  color: rgba(239,228,206,.66);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.welcome-entry {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  bottom: 31px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+}
+
+.welcome-enter {
+  min-width: 214px;
+  min-height: 52px;
+  padding: 0 17px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(226,205,163,.38);
+  border-radius: 999px;
+  color: #231b12;
+  background: rgba(236,217,178,.91);
+  box-shadow: 0 12px 38px rgba(0,0,0,.26);
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .28s ease, filter .28s ease, box-shadow .28s ease;
+}
+
+.welcome-enter i {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(42,31,18,.22);
+  border-radius: 50%;
+  font-size: 13px;
+  font-style: normal;
+  animation: scrollHint 1.8s ease-in-out infinite;
+}
+
+.welcome-enter:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 17px 46px rgba(0,0,0,.36);
+}
+
+.welcome-entry small {
+  color: rgba(234,218,187,.40);
+  font-size: 6px;
+  letter-spacing: .22em;
+}
+
+.welcome-return-rift { display: none !important; }
+
+@keyframes welcomeBreath {
+  from { transform: translate(-40%, -47%) scale(1.035); }
+  to { transform: translate(-40%, -48%) scale(1.075); }
+}
+
+@keyframes scrollHint {
+  0%,100% { transform: translateY(-1px); }
+  50% { transform: translateY(3px); }
+}
+
+/* ---------------------- MOSAIC TIMELINE -------------------- */
+.portfolio-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9100;
+  overflow: hidden;
+  isolation: isolate;
+  opacity: var(--transition-opacity, 0);
+  visibility: hidden;
+  pointer-events: none;
+  background: transparent;
+  transform: translateZ(0);
+  will-change: opacity;
+  transition: none !important;
+}
+
+.portfolio-transition.is-live {
+  visibility: visible;
+}
+
+/* Thin grayscale region that reaches ahead of the fractured edge,
+   matching the reference where the outgoing artwork loses colour
+   before the grey field fully covers it. */
+.mosaic-desaturate {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: var(--desaturate-opacity, 0);
+  backdrop-filter: grayscale(1) saturate(.08) contrast(1.12) brightness(.92);
+  -webkit-backdrop-filter: grayscale(1) saturate(.08) contrast(1.12) brightness(.92);
+  background: rgba(226,228,228,.035);
+  will-change: clip-path, opacity;
+}
+
+/* The neutral grey/white field revealed by the moving mosaic edge. */
+.mosaic-neutral,
+.mosaic-grain {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(100vh + 330px);
+  transform: translate3d(0, var(--mosaic-y, 110vh), 0);
+  -webkit-clip-path: polygon(
+    0 0, 0.38% calc(var(--panel-ridge, 128px) + 5px),
+    4.88% calc(var(--panel-ridge, 128px) + 19px),
+    9.38% calc(var(--panel-ridge, 128px) + 1px),
+    13.88% calc(var(--panel-ridge, 128px) + 0px),
+    18.38% calc(var(--panel-ridge, 128px) + 8px),
+    22.88% calc(var(--panel-ridge, 128px) - 17px),
+    27.38% calc(var(--panel-ridge, 128px) - 14px),
+    31.88% calc(var(--panel-ridge, 128px) - 18px),
+    36.38% calc(var(--panel-ridge, 128px) + 6px),
+    40.88% calc(var(--panel-ridge, 128px) + 21px),
+    45.38% calc(var(--panel-ridge, 128px) - 9px),
+    49.88% calc(var(--panel-ridge, 128px) + 21px),
+    54.38% calc(var(--panel-ridge, 128px) - 8px),
+    58.88% calc(var(--panel-ridge, 128px) - 7px),
+    63.38% calc(var(--panel-ridge, 128px) - 22px),
+    67.88% calc(var(--panel-ridge, 128px) + 6px),
+    72.38% calc(var(--panel-ridge, 128px) - 14px),
+    76.88% calc(var(--panel-ridge, 128px) + 7px),
+    81.38% calc(var(--panel-ridge, 128px) - 4px),
+    85.88% calc(var(--panel-ridge, 128px) + 17px),
+    90.38% calc(var(--panel-ridge, 128px) + 4px),
+    94.88% calc(var(--panel-ridge, 128px) + 1px),
+    99.38% calc(var(--panel-ridge, 128px) - 15px), 100% 0, 100% 100%, 0 100%
+  );
+  clip-path: polygon(
+    0 0, 0.38% calc(var(--panel-ridge, 128px) + 5px),
+    4.88% calc(var(--panel-ridge, 128px) + 19px),
+    9.38% calc(var(--panel-ridge, 128px) + 1px),
+    13.88% calc(var(--panel-ridge, 128px) + 0px),
+    18.38% calc(var(--panel-ridge, 128px) + 8px),
+    22.88% calc(var(--panel-ridge, 128px) - 17px),
+    27.38% calc(var(--panel-ridge, 128px) - 14px),
+    31.88% calc(var(--panel-ridge, 128px) - 18px),
+    36.38% calc(var(--panel-ridge, 128px) + 6px),
+    40.88% calc(var(--panel-ridge, 128px) + 21px),
+    45.38% calc(var(--panel-ridge, 128px) - 9px),
+    49.88% calc(var(--panel-ridge, 128px) + 21px),
+    54.38% calc(var(--panel-ridge, 128px) - 8px),
+    58.88% calc(var(--panel-ridge, 128px) - 7px),
+    63.38% calc(var(--panel-ridge, 128px) - 22px),
+    67.88% calc(var(--panel-ridge, 128px) + 6px),
+    72.38% calc(var(--panel-ridge, 128px) - 14px),
+    76.88% calc(var(--panel-ridge, 128px) + 7px),
+    81.38% calc(var(--panel-ridge, 128px) - 4px),
+    85.88% calc(var(--panel-ridge, 128px) + 17px),
+    90.38% calc(var(--panel-ridge, 128px) + 4px),
+    94.88% calc(var(--panel-ridge, 128px) + 1px),
+    99.38% calc(var(--panel-ridge, 128px) - 15px), 100% 0, 100% 100%, 0 100%
+  );
+  will-change: transform;
+}
+
+.mosaic-neutral {
+  z-index: 2;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 52% 80%, rgba(240,242,244,.20), transparent 42%),
+    radial-gradient(ellipse at 82% 36%, rgba(145,153,166,.10), transparent 34%),
+    radial-gradient(ellipse at 24% 60%, rgba(118,126,139,.07), transparent 36%),
+    linear-gradient(180deg,
+      #090a0b 0%,
+      #121418 16%,
+      #24282f 39%,
+      #4a5058 68%,
+      #7a8088 100%);
+}
+
+/* Fine paper/noise structure in the neutral field. */
+.mosaic-grain {
+  z-index: 3;
+  opacity: .34;
+  background-image:
+    repeating-radial-gradient(circle at 28% 37%, rgba(255,255,255,.06) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(101deg, rgba(255,255,255,.025) 0 1px, transparent 1px 5px);
+  background-size: 37px 41px, 11px 13px;
+  mix-blend-mode: soft-light;
+}
+
+/* White contour of the actual outgoing artwork. The reference video
+   turns the outgoing character into a monochrome line drawing around
+   the dissolve boundary; clipping this layer to the moving band recreates
+   that effect without replacing the user's artwork. */
+.mosaic-contour-band {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  opacity: var(--contour-opacity, 0);
+  pointer-events: none;
+  will-change: clip-path, opacity;
+  mix-blend-mode: screen;
+}
+
+.mosaic-contour-art {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,.26));
+}
+
+.mosaic-contour-art--back {
+  inset: -17%;
+  width: 134%;
+  height: 134%;
+  object-fit: cover;
+  object-position: 55% 45%;
+  opacity: .34;
+  transform: scale(1.08);
+}
+
+.mosaic-contour-art--main {
+  left: 50%;
+  top: 50%;
+  width: min(79vw, 1120px);
+  height: min(86vh, 920px);
+  object-fit: contain;
+  opacity: .96;
+  transform: translate(-40%, -47%) scale(1.05);
+}
+
+/* Detailed grey/white fractured-mosaic strip generated from the
+   reference-video silhouette. The panel and this strip share the
+   same translate value, so there is never a seam between them. */
+.mosaic-edge {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: -1.5%;
+  width: 103%;
+  height: 280px;
+  transform: translate3d(0, var(--mosaic-y, 110vh), 0);
+  background: url("assets/mosaic-edge.svg") center / 100% 100% no-repeat;
+  filter:
+    grayscale(1)
+    drop-shadow(0 -2px 8px rgba(255,255,255,.16))
+    drop-shadow(0 6px 13px rgba(0,0,0,.32));
+  mix-blend-mode: screen;
+  opacity: calc(var(--edge-opacity, 0) * .52);
+  will-change: transform, opacity;
+}
+
+.transition-intertitle {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 9px;
+  opacity: var(--intertitle-opacity, 0);
+  transform: translate3d(0, var(--intertitle-y, 14px), 0) scale(var(--intertitle-scale, .99));
+  text-align: center;
+  color: rgba(247,247,244,.96);
+  text-shadow: 0 2px 22px rgba(0,0,0,.54);
+  will-change: opacity, transform;
+}
+
+.transition-intertitle::before,
+.transition-intertitle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: min(520px, 56vw);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(235,236,235,.27), transparent);
+}
+
+.transition-intertitle::before { top: calc(50% - 66px); }
+.transition-intertitle::after { top: calc(50% + 66px); }
+
+.transition-intertitle span {
+  color: rgba(222,224,224,.55);
+  font-size: 8px;
+  letter-spacing: .3em;
+}
+
+.transition-intertitle h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(38px, 4.1vw, 72px);
+  font-weight: 400;
+  letter-spacing: -.025em;
+}
+
+.transition-intertitle i {
+  position: absolute;
+  left: 50%;
+  bottom: 7vh;
+  color: rgba(238,239,239,.40);
+  font-family: var(--serif);
+  font-size: 18px;
+  font-style: normal;
+  transform: translateX(-50%);
+}
+
+/* Prevent reveal observers from hiding top-of-main elements while the
+   cinematic timeline is preparing the portfolio underneath. */
+body.intro-transitioning main .reveal.has-revealed,
+body.portfolio-active main .reveal.has-revealed {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .welcome-topbar {
+    height: 78px;
+    padding: 0 22px;
+  }
+
+  .welcome-meta span:first-child { display: none; }
+  .welcome-grid { inset: 78px 14px 18px; }
+
+  .welcome-art--main,
+  .mosaic-contour-art--main {
+    left: 50%;
+    top: 44%;
+    width: 112vw;
+    height: 70vh;
+    transform: translate(-50%, -48%) scale(1.02);
+  }
+
+  @keyframes welcomeBreath {
+    from { transform: translate(-50%, -48%) scale(1.00); }
+    to { transform: translate(-50%, -49%) scale(1.035); }
+  }
+
+  .welcome-copy {
+    left: 30px;
+    right: 30px;
+    bottom: 122px;
+    width: auto;
+    text-align: center;
+  }
+
+  .welcome-kicker { justify-content: center; }
+  .welcome-copy h1 { font-size: clamp(42px, 11vw, 72px); }
+  .welcome-copy h1 em { margin-left: 0; }
+  .welcome-copy > p:last-child { margin-left: auto; margin-right: auto; font-size: 8px; }
+  .welcome-entry { bottom: 27px; }
+  .welcome-enter { min-width: 196px; }
+  .mosaic-edge { height: 220px; }
+}
+
+@media (max-width: 560px) {
+  .welcome-brand > span:last-child small { display: none; }
+  .welcome-meta { display: none; }
+  .welcome-copy { bottom: 116px; left: 22px; right: 22px; }
+  .welcome-copy > p:last-child { max-width: 330px; line-height: 1.55; }
+  .welcome-art--back { opacity: .26; }
+  .welcome-art--main,
+  .mosaic-contour-art--main { width: 138vw; height: 64vh; top: 42%; }
+  .welcome-entry small { display: none; }
+  .transition-intertitle::before,
+  .transition-intertitle::after { width: 78vw; }
+  .transition-intertitle h2 { font-size: clamp(34px, 10vw, 48px); }
+  .mosaic-edge { width: 108%; left: -4%; height: 190px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-art--main,
+  .welcome-enter i { animation: none !important; }
+  .welcome-screen,
+  .portfolio-transition,
+  .site-header,
+  main { transition: none !important; }
+}
+
+
+/* =========================================================
+   V4 — TRUE SCROLL SCRUB + SILVER-PALACE-STYLE DIVIDER
+   The transition position is controlled by physical scroll distance.
+========================================================= */
+
+body.intro-transitioning .welcome-screen,
+body.welcome-active .welcome-screen {
+  touch-action: none;
+}
+
+/* The supplied reference has a slate-grey lower plate rather than a black
+   wipe. Keep the top of the plate dark enough for the white fracture and
+   let it bloom into cold grey toward the lower viewport. */
+.mosaic-neutral {
+  background:
+    radial-gradient(ellipse at 50% 12%, rgba(230,234,237,.10), transparent 30%),
+    radial-gradient(ellipse at 52% 78%, rgba(232,235,238,.13), transparent 44%),
+    linear-gradient(180deg,
+      #242932 0%,
+      #303640 22%,
+      #414852 48%,
+      #59616c 73%,
+      #747b86 100%);
+}
+
+/* Strong visible 'pembelah': bright fractured ridge + pale debris around it.
+   The SVG already contains hundreds of shards and three independently rough
+   strokes; increasing local contrast makes it read like the reference frame
+   instead of a generic polygon edge. */
+.mosaic-edge {
+  height: 320px;
+  opacity: calc(var(--edge-opacity, 0) * .94);
+  filter:
+    grayscale(1)
+    contrast(1.22)
+    brightness(1.16)
+    drop-shadow(0 -2px 5px rgba(255,255,255,.30))
+    drop-shadow(0 5px 12px rgba(5,8,12,.50));
+  mix-blend-mode: screen;
+}
+
+.mosaic-edge::before,
+.mosaic-edge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ghosted duplicate = chalk/ink breakup around the split */
+.mosaic-edge::before {
+  background: inherit;
+  opacity: .35;
+  transform: translateY(2px) scaleY(1.025);
+  filter: blur(.8px) brightness(1.42);
+}
+
+/* soft horizontal bloom precisely around the ridge line */
+.mosaic-edge::after {
+  background: linear-gradient(180deg,
+    transparent 30%,
+    rgba(255,255,255,.02) 36%,
+    rgba(255,255,255,.17) 44%,
+    rgba(220,224,228,.10) 49%,
+    rgba(14,17,22,.18) 56%,
+    transparent 67%);
+  mix-blend-mode: screen;
+  opacity: .72;
+}
+
+.mosaic-contour-band {
+  mix-blend-mode: screen;
+  filter: contrast(1.18) brightness(1.11);
+}
+
+.mosaic-contour-art {
+  filter:
+    contrast(1.20)
+    brightness(1.13)
+    drop-shadow(0 0 2px rgba(255,255,255,.34))
+    drop-shadow(0 0 8px rgba(255,255,255,.10));
+}
+
+/* The lower plate gets the fine horizontal/paper structure visible in the
+   screenshot, while remaining subtle enough not to become banding. */
+.mosaic-grain {
+  opacity: .42;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.024) 0 1px, transparent 1px 4px),
+    repeating-radial-gradient(circle at 27% 41%, rgba(255,255,255,.055) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(101deg, rgba(255,255,255,.019) 0 1px, transparent 1px 7px);
+  background-size: 100% 4px, 39px 43px, 13px 17px;
+  mix-blend-mode: soft-light;
+}
+
+/* Don't let the old welcome breathing animation visually fight a frame that
+   the user has intentionally paused mid-scroll. */
+body.intro-transitioning .welcome-art--main {
+  animation-play-state: paused;
+}
+
+@media (max-width: 900px) {
+  .mosaic-edge { height: 245px; }
+}
+
+@media (max-width: 560px) {
+  .mosaic-edge { height: 205px; }
+}
+
+/* =========================================================
+   V5 — ANIMATED TRUE WAVE CUT
+   The animated ridge is now the literal clipping boundary.
+   Nothing from the contour / fracture layer is allowed below it.
+========================================================= */
+
+/* The slate plate is clipped in JS to the live wave. No static polygon and
+   no translated oversized panel remain, so the visible divider and the cut
+   can never drift apart. */
+.mosaic-neutral,
+.mosaic-grain {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: none !important;
+  -webkit-clip-path: polygon(0 100%,100% 100%,100% 100%,0 100%);
+  clip-path: polygon(0 100%,100% 100%,100% 100%,0 100%);
+  will-change: clip-path, opacity;
+}
+
+/* Keep the old fracture texture ONLY on the outgoing/image side of the cut.
+   Its lower half is hard-clipped, so it cannot create a second line, shadow,
+   or wireframe beneath the divider. */
+.mosaic-edge {
+  z-index: 4;
+  height: 230px;
+  opacity: calc(var(--edge-opacity, 0) * .46);
+  -webkit-clip-path: inset(0 0 55% 0);
+  clip-path: inset(0 0 55% 0);
+  filter: grayscale(1) contrast(1.16) brightness(1.12);
+  mix-blend-mode: screen;
+  animation: none;
+  will-change: transform, opacity, background-position;
+}
+
+.portfolio-transition.is-live .mosaic-edge {
+  animation: mosaicEdgeTextureDrift 2.8s ease-in-out infinite alternate;
+}
+
+/* Remove the previous pseudo glow/ghost that was visible below the split. */
+.mosaic-edge::before,
+.mosaic-edge::after {
+  content: none !important;
+  display: none !important;
+}
+
+@keyframes mosaicEdgeTextureDrift {
+  from { background-position: 48.5% 50%; }
+  to   { background-position: 51.5% 48%; }
+}
+
+/* The animated divider itself. Paths are regenerated every frame by JS.
+   The echo is shifted UP only; there is intentionally no lower glow/shadow. */
+.mosaic-divider {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--edge-opacity, 0);
+  will-change: opacity;
+}
+
+.mosaic-divider-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.mosaic-divider-line,
+.mosaic-divider-echo {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mosaic-divider-line {
+  stroke: rgba(250,250,247,.93);
+  stroke-width: 2.15;
+}
+
+.mosaic-divider-echo {
+  stroke: rgba(255,255,252,.34);
+  stroke-width: 1.05;
+  transform: translateY(-5px);
+}
+
+/* Contour is a pre-cut layer now. JS provides a polygon whose LOWER edge is
+   exactly the animated divider. This is the key fix: zero line-art survives
+   below the wave. */
+.mosaic-contour-band {
+  z-index: 4;
+  overflow: hidden;
+  filter: contrast(1.10) brightness(1.06);
+  will-change: clip-path, opacity;
+}
+
+.mosaic-contour-art {
+  filter: contrast(1.13) brightness(1.08);
+}
+
+/* The grayscale pre-transition strip is also bounded by the same wave,
+   instead of continuing underneath the grey plate. */
+.mosaic-desaturate {
+  will-change: clip-path, opacity;
+}
+
+@media (max-width: 900px) {
+  .mosaic-edge { height: 190px; }
+  .mosaic-divider-line { stroke-width: 1.8; }
+}
+
+@media (max-width: 560px) {
+  .mosaic-edge { height: 158px; }
+  .mosaic-divider-line { stroke-width: 1.55; }
+  .mosaic-divider-echo { transform: translateY(-3px); }
+}
+
+
+/* =========================================================
+   V6 — BROAD ERODED SHORELINE / NO UPPER SEPARATOR
+   Larger organic cut, no flat boundary above, no clean SVG stroke.
+========================================================= */
+
+/* The old mosaic SVG contains a straight line at its extreme top and several
+   baseline guides at the bottom.  Show only its fractured middle core and
+   feather it, so those construction lines can never appear in the scene. */
+.mosaic-edge {
+  height: 270px;
+  opacity: calc(var(--edge-opacity, 0) * .58);
+  -webkit-clip-path: inset(17% 0 53.5% 0);
+  clip-path: inset(17% 0 53.5% 0);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 19%, #000 76%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 19%, #000 76%, transparent 100%);
+  filter: grayscale(1) contrast(1.12) brightness(1.08);
+  mix-blend-mode: screen;
+}
+
+/* The actual cut itself provides the silhouette.  Remove the polished
+   continuous outline/echo so it reads like eroded pixels/chalk instead of a
+   vector divider drawn on top of the page. */
+.mosaic-divider-line {
+  stroke: rgba(255,255,250,.22);
+  stroke-width: .9;
+  stroke-dasharray: 2 10 7 13 1 12 4 9;
+  opacity: .34;
+}
+
+.mosaic-divider-echo {
+  display: none;
+}
+
+/* No hard horizontal top edge: JS clips these layers from viewport top to the
+   living shoreline, while these masks feather the effect in naturally. */
+.mosaic-contour-band,
+.mosaic-desaturate {
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* Slightly quieter contour so the transition feels integrated with the source
+   artwork rather than like a second full line-art poster layered on top. */
+.mosaic-contour-band {
+  filter: contrast(1.06) brightness(1.03);
+}
+
+.mosaic-contour-art--back { opacity: .22; }
+.mosaic-contour-art--main { opacity: .76; }
+
+@media (max-width: 900px) {
+  .mosaic-edge { height: 225px; }
+}
+
+@media (max-width: 560px) {
+  .mosaic-edge { height: 188px; }
+  .mosaic-divider-line { stroke-width: .85; }
+}
+
+
+/* =========================================================
+   V7 — PROCEDURAL ORGANIC DISSOLVE FIELD
+   Replaces the visible rectangular lower plate and regular wave with a
+   scroll-scrubbed, noise-eroded canvas boundary modelled on the supplied
+   Silver Palace reference footage.
+========================================================= */
+
+.mosaic-organic-field {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 1;
+  mix-blend-mode: normal;
+  will-change: contents;
+}
+
+/* Canvas now supplies the actual grey field, grain and fractured edge. Keep
+   these as invisible fallbacks so there is no bright rectangular slab or
+   construction line leaking into the live transition. */
+.portfolio-transition.is-live .mosaic-neutral,
+.portfolio-transition.is-live .mosaic-grain,
+.portfolio-transition.is-live .mosaic-edge,
+.portfolio-transition.is-live .mosaic-divider {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Localised contour only. The reference has chalk/edge information clustered
+   around the dissolve front, not a full-screen outline poster. */
+.mosaic-contour-band {
+  z-index: 4;
+  mix-blend-mode: screen;
+  filter: contrast(1.02) brightness(1.01);
+}
+.mosaic-contour-art--back { opacity: .07; }
+.mosaic-contour-art--main { opacity: .52; }
+
+/* The old lower panel was intentionally quite bright; darkening the fallback
+   prevents a rectangular flash on first paint before the canvas frame lands. */
+.mosaic-neutral {
+  background: linear-gradient(180deg,#171b22 0%,#202630 42%,#333a47 100%) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mosaic-organic-field { display: none; }
+  .portfolio-transition.is-live .mosaic-neutral,
+  .portfolio-transition.is-live .mosaic-grain {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* =========================================================
+   V8 — ABSTRACT EROSION BAND
+   The live canvas owns the divide.  No continuous SVG divider is rendered;
+   the edge is a broken zone of slate islands, holes, chalk scratches and
+   short filaments rather than a readable wave path.
+========================================================= */
+.portfolio-transition.is-live .mosaic-divider,
+.portfolio-transition.is-live .mosaic-edge {
+  display: none !important;
+}
+
+/* Keep contour support subtle enough that it cannot reconstruct a clean line
+   along the new fragmented boundary. */
+.portfolio-transition.is-live .mosaic-contour-band {
+  opacity: calc(var(--contour-opacity, 0) * .72);
+}
+
+
+.mosaic-neutral::before,
+.mosaic-neutral::after {
+  content: "";
+  position: absolute;
+  inset: -6%;
+  pointer-events: none;
+}
+
+.mosaic-neutral::before {
+  background:
+    radial-gradient(ellipse at 50% 78%, rgba(255,255,255,.10), transparent 33%),
+    radial-gradient(ellipse at 76% 28%, rgba(191,199,210,.08), transparent 24%);
+  mix-blend-mode: screen;
+  opacity: .55;
+}
+
+.mosaic-neutral::after {
+  background: linear-gradient(180deg, rgba(255,255,255,.05), transparent 22%, rgba(0,0,0,.06) 100%);
+  opacity: .42;
+}
+
+
+/* =========================================================
+   V9 — PERFORMANCE POLISH / COMPOSITING HYGIENE
+   Keeps the visual language intact while limiting unnecessary paint scope.
+========================================================= */
+.portfolio-transition {
+  contain: strict;
+}
+.mosaic-organic-field {
+  contain: strict;
+  will-change: auto;
+}
+.portfolio-transition.is-live .mosaic-organic-field {
+  will-change: opacity;
+}
+.particles {
+  contain: strict;
+}
+.project-page .case-visual,
+.project-page .record-visual,
+.project-page .project-detail-meta,
+.project-page .case-process {
+  contain: layout paint;
+}
+@media (max-width: 900px) {
+  .mosaic-desaturate {
+    backdrop-filter: grayscale(1) saturate(.12) contrast(1.08) brightness(.94);
+    -webkit-backdrop-filter: grayscale(1) saturate(.12) contrast(1.08) brightness(.94);
+  }
+}
+@media (max-width: 560px) {
+  .mosaic-contour-art--back { display: none; }
+  .mosaic-contour-art--main { opacity: .44; }
+}
+
+
+/* Promote expensive clipping layers only while the transition is actually live. */
+.mosaic-desaturate,
+.mosaic-contour-band {
+  will-change: auto;
+}
+.portfolio-transition.is-live .mosaic-desaturate,
+.portfolio-transition.is-live .mosaic-contour-band {
+  will-change: clip-path, opacity;
+}
+
+/* Mobile substitutes a blend-based desaturation for the full-screen
+   backdrop-filter. It keeps the monochrome lead-in without the large filter
+   surface that is expensive on phone GPUs. */
+@media (max-width: 560px) {
+  .mosaic-desaturate {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(154,158,164,.28);
+    mix-blend-mode: saturation;
+  }
+}
+
+
+/* Ambient canvas does not compete with the cinematic intro for GPU time. */
+body.transition-managed .particles {
+  opacity: 0;
+  transition: opacity .28s ease;
+}
+body.transition-managed.portfolio-active .particles {
+  opacity: 1;
+}
+
+/* =========================================================
+   V10 — DEVICE-AWARE FINE TUNING
+   Keeps the same visual language while reducing work that is invisible
+   or disproportionately expensive on phone/tablet GPUs.
+========================================================= */
+
+/* Do not ask the browser to pre-promote the whole procedural canvas. The
+   live transition already gets its own compositor work when opacity changes. */
+.mosaic-organic-field {
+  will-change: auto;
+}
+
+/* On the lite runtime tier (coarse pointers / small or constrained devices),
+   replace the large backdrop filter with a blend-based monochrome wash.
+   This is particularly helpful on Safari/iOS where filtered fixed layers can
+   be much more expensive than the same effect on desktop Chromium. */
+html[data-perf-tier="lite"] .mosaic-desaturate {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: rgba(154,158,164,.29) !important;
+  mix-blend-mode: saturation;
+}
+html[data-perf-tier="lite"] .mosaic-contour-art--back {
+  display: none;
+}
+html[data-perf-tier="lite"] .mosaic-contour-art--main {
+  opacity: .44;
+}
+
+/* Skip layout/paint for deep below-fold content until the browser approaches
+   it. Intrinsic placeholders keep document height stable for anchor links. */
+@supports (content-visibility: auto) {
+  body:not(.project-page) main > section:not(.hero),
+  .project-page .case-visual,
+  .project-page .record-visual,
+  .project-page .case-section,
+  .project-page .next-record {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 760px;
+  }
+
+  .project-page .case-section {
+    contain-intrinsic-size: auto 520px;
+  }
+}
+
+/* Full fixed grain adds little on smaller displays but creates another
+   blended full-screen layer. Keep texture, lower compositing pressure. */
+@media (max-width: 700px), (pointer: coarse) {
+  .grain {
+    opacity: .075;
+    mix-blend-mode: normal;
+  }
+}
+
+/* =========================================================
+   V19 — FINAL POLISH
+   Deep-link continuity, accessibility state, and compositor cleanup.
+========================================================= */
+
+/* Keep the viewport from shifting horizontally when the cinematic scene
+   releases scroll on desktop. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Project-record links such as index.html#projects should land directly in
+   the requested portfolio chapter without flashing the welcome artwork. */
+html.has-deep-link .welcome-screen,
+html.has-deep-link .portfolio-transition {
+  visibility: hidden !important;
+}
+
+/* Once the portfolio endpoint is reached, stop promoting the entire document
+   as one giant transformed layer. This releases compositor memory while the
+   user reads the normal page. Reverse transition re-enables the base rule. */
+body.transition-managed.portfolio-active .site-header,
+body.transition-managed.portfolio-active main {
+  opacity: 1 !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+.welcome-screen.is-hidden {
+  will-change: auto !important;
+}
+
+body.transition-managed.welcome-active .welcome-screen,
+body.transition-managed.intro-transitioning .welcome-screen {
+  will-change: opacity;
+}
+
+/* Normal document scrolling should feel native after the cinematic lock is
+   released (and on standalone project records). */
+html:not(.intro-locked),
+body:not(.intro-locked) {
+  overscroll-behavior-y: auto;
+}
+
+/* Inert sections are intentionally non-interactive during the cinematic
+   timeline; this complements the JS inert state for keyboard users. */
+[inert] {
+  pointer-events: none !important;
+}

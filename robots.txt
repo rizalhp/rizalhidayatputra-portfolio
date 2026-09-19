@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rizalhp-dev.vercel.app/sitemap.xml
