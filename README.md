@@ -2,6 +2,11 @@
 
 Static recruiter-facing portfolio with a dark Victorian / modern data-tech visual language.
 
+## Quick links
+
+- [Live portfolio](https://rizalhp-dev.vercel.app/)
+- [Development progress](./daily-progress/)
+
 ## Current build
 - Scroll-triggered reversible welcome ↔ portfolio transition
 - Grey/white contour-mosaic dissolve matched to the supplied reference recording
@@ -26,7 +31,6 @@ Open `http://localhost:8000`.
 
 ## Security
 Do not commit or share `.env*` files. They are ignored by `.gitignore` and are not included in the distributable ZIP.
-
 
 ## Runtime structure
 
