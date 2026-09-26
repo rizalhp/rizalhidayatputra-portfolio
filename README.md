@@ -7,6 +7,13 @@ Static recruiter-facing portfolio with a dark Victorian / modern data-tech visua
 - [Live portfolio](https://rizalhp-dev.vercel.app/)
 - [Development progress](./daily-progress/)
 
+## Selected case studies
+
+- [Airline operations analytics](https://rizalhp-dev.vercel.app/project-airline.html)
+- [E-commerce sales performance](https://rizalhp-dev.vercel.app/project-ecommerce.html)
+- [Kang Parkir Simulator](https://rizalhp-dev.vercel.app/project-kang-parkir.html)
+- [Hybrid CNN–GRU suicide detection research](https://rizalhp-dev.vercel.app/project-research.html)
+
 ## Current build
 - Scroll-triggered reversible welcome ↔ portfolio transition
 - Grey/white contour-mosaic dissolve matched to the supplied reference recording
