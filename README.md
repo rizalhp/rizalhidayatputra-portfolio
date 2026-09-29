@@ -9,10 +9,10 @@ Static recruiter-facing portfolio with a dark Victorian / modern data-tech visua
 
 ## Selected case studies
 
-- [Airline operations analytics](https://rizalhp-dev.vercel.app/project-airline.html)
-- [E-commerce sales performance](https://rizalhp-dev.vercel.app/project-ecommerce.html)
-- [Kang Parkir Simulator](https://rizalhp-dev.vercel.app/project-kang-parkir.html)
-- [Hybrid CNN–GRU suicide detection research](https://rizalhp-dev.vercel.app/project-research.html)
+- [Airline operations analytics](https://rizalhp-dev.vercel.app/project-airline.html) — airline reliability, cancellations, and delay patterns.
+- [E-commerce sales performance](https://rizalhp-dev.vercel.app/project-ecommerce.html) — analysis of more than one million retail transactions; [explore the Tableau dashboard](https://public.tableau.com/app/profile/rizal.hidayat.putra/viz/E-commerceSalesPerformanceDashboard_17839484720630/CustomerSegmentation).
+- [Kang Parkir Simulator](https://rizalhp-dev.vercel.app/project-kang-parkir.html) — Roblox parking simulator with progression and social competition systems.
+- [Hybrid CNN–GRU suicide detection research](https://rizalhp-dev.vercel.app/project-research.html) — NLP research with feature expansion and enhancement; [read the published paper](https://doi.org/10.1109/ICITCOM66635.2025.11265431).
 
 ## Current build
 - Scroll-triggered reversible welcome ↔ portfolio transition
