@@ -20,13 +20,21 @@ class Page(HTMLParser):
     def __init__(self, content):
         super().__init__(convert_charrefs=True)
         self.targets = set()
+        self.id_lines = {}
+        self.duplicate_ids = []
         self.links = []
         self.feed(content)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         if attrs.get('id'):
-            self.targets.add(attrs['id'])
+            identifier = attrs['id']
+            line = self.getpos()[0]
+            if identifier in self.id_lines:
+                self.duplicate_ids.append((line, identifier, self.id_lines[identifier]))
+            else:
+                self.id_lines[identifier] = line
+            self.targets.add(identifier)
         if tag == 'a' and attrs.get('name'):
             self.targets.add(attrs['name'])
         for attr in ('href', 'src'):
@@ -61,6 +69,11 @@ def check(paths, contents, styles=None):
                 errors.append(f'{prefix} -> missing fragment: {fragment}')
 
     for source, page in sorted(pages.items()):
+        for line, identifier, first_line in page.duplicate_ids:
+            errors.append(
+                f'{source}:{line}: duplicate id: {identifier} '
+                f'(first declared on line {first_line})'
+            )
         for line, link in page.links:
             target_path = unquote(urlsplit(link).path)
             target = (posixpath.normpath(target_path.lstrip('/')) if target_path.startswith('/')
