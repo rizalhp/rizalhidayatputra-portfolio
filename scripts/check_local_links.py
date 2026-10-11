@@ -14,6 +14,16 @@ from urllib.parse import unquote, urlsplit
 
 
 CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
+ID_REFERENCE_ATTRIBUTES = (
+    'aria-activedescendant',
+    'aria-controls',
+    'aria-describedby',
+    'aria-labelledby',
+    'aria-owns',
+    'for',
+    'form',
+    'list',
+)
 
 
 class Page(HTMLParser):
@@ -22,6 +32,7 @@ class Page(HTMLParser):
         self.targets = set()
         self.id_lines = {}
         self.duplicate_ids = []
+        self.id_references = []
         self.links = []
         self.feed(content)
 
@@ -37,6 +48,12 @@ class Page(HTMLParser):
             self.targets.add(identifier)
         if tag == 'a' and attrs.get('name'):
             self.targets.add(attrs['name'])
+        for attr in ID_REFERENCE_ATTRIBUTES:
+            if attrs.get(attr):
+                for identifier in attrs[attr].split():
+                    self.id_references.append(
+                        (self.getpos()[0], attr, identifier)
+                    )
         for attr in ('href', 'src'):
             if attrs.get(attr):
                 self.links.append((self.getpos()[0], attrs[attr]))
@@ -74,6 +91,12 @@ def check(paths, contents, styles=None):
                 f'{source}:{line}: duplicate id: {identifier} '
                 f'(first declared on line {first_line})'
             )
+        for line, attribute, identifier in page.id_references:
+            if identifier not in page.targets:
+                errors.append(
+                    f'{source}:{line}: {attribute} references missing id: '
+                    f'{identifier}'
+                )
         for line, link in page.links:
             target_path = unquote(urlsplit(link).path)
             target = (posixpath.normpath(target_path.lstrip('/')) if target_path.startswith('/')
