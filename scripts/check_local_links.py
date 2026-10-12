@@ -33,6 +33,7 @@ class Page(HTMLParser):
         self.id_lines = {}
         self.duplicate_ids = []
         self.id_references = []
+        self.image_issues = []
         self.links = []
         self.feed(content)
 
@@ -48,6 +49,10 @@ class Page(HTMLParser):
             self.targets.add(identifier)
         if tag == 'a' and attrs.get('name'):
             self.targets.add(attrs['name'])
+        if tag == 'img':
+            line = self.getpos()[0]
+            if 'alt' not in attrs:
+                self.image_issues.append((line, 'missing alt attribute'))
         for attr in ID_REFERENCE_ATTRIBUTES:
             if attrs.get(attr):
                 for identifier in attrs[attr].split():
@@ -86,6 +91,8 @@ def check(paths, contents, styles=None):
                 errors.append(f'{prefix} -> missing fragment: {fragment}')
 
     for source, page in sorted(pages.items()):
+        for line, issue in page.image_issues:
+            errors.append(f'{source}:{line}: image {issue}')
         for line, identifier, first_line in page.duplicate_ids:
             errors.append(
                 f'{source}:{line}: duplicate id: {identifier} '
