@@ -2,8 +2,9 @@
 """Check local HTML and CSS references without network access.
 
 Run from the repository root: python3 scripts/check_local_links.py
-Checks HTML href/src paths, HTML fragments, and CSS url() paths. External URLs,
-srcset, and references assembled by JavaScript are intentionally excluded.
+Checks HTML href/src paths, HTML fragments, image metadata, and CSS url() paths.
+External URLs, srcset, and references assembled by JavaScript are intentionally
+excluded.
 """
 
 from html.parser import HTMLParser
@@ -14,6 +15,7 @@ from urllib.parse import unquote, urlsplit
 
 
 CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
+POSITIVE_INTEGER = re.compile(r'[1-9]\d*')
 ID_REFERENCE_ATTRIBUTES = (
     'aria-activedescendant',
     'aria-controls',
@@ -53,6 +55,16 @@ class Page(HTMLParser):
             line = self.getpos()[0]
             if 'alt' not in attrs:
                 self.image_issues.append((line, 'missing alt attribute'))
+            for dimension in ('width', 'height'):
+                value = attrs.get(dimension)
+                if value is None:
+                    self.image_issues.append(
+                        (line, f'missing {dimension} attribute')
+                    )
+                elif not POSITIVE_INTEGER.fullmatch(value.strip()):
+                    self.image_issues.append(
+                        (line, f'invalid {dimension} attribute: {value!r}')
+                    )
         for attr in ID_REFERENCE_ATTRIBUTES:
             if attrs.get(attr):
                 for identifier in attrs[attr].split():
