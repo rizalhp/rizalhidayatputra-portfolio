@@ -25,5 +25,8 @@ jobs:
       - name: Compile link checker
         run: python3 -m py_compile scripts/check_local_links.py
 
+      - name: Run link checker unit tests
+        run: python3 -m unittest discover -s tests
+
       - name: Validate local links and fragments
         run: python3 scripts/check_local_links.py
