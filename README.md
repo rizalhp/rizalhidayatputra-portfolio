@@ -31,10 +31,30 @@ Static recruiter-facing portfolio with a dark Victorian / modern data-tech visua
 - Reduced-motion support and visible keyboard focus states
 
 ## Local preview
+
 ```bash
 python3 -m http.server 8000
 ```
+
 Open `http://localhost:8000`.
+
+## Local validation
+
+The validation tools use only the Python standard library. Python 3.12 is used in CI.
+
+Run the regression tests:
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+Then audit the current site:
+
+```bash
+python3 scripts/check_local_links.py
+```
+
+The audit checks local `href` and `src` targets, CSS `url()` assets, HTML fragments, duplicate IDs, ID references used by ARIA and form attributes, and image `alt`, `width`, and `height` metadata. External URLs, `srcset`, and references assembled by JavaScript are intentionally outside its scope.
 
 ## Security
 Do not commit or share `.env*` files. They are ignored by `.gitignore` and are not included in the distributable ZIP.
