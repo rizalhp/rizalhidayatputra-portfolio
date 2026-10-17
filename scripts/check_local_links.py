@@ -34,16 +34,35 @@ class Page(HTMLParser):
         self.targets = set()
         self.id_lines = {}
         self.duplicate_ids = []
+        self.document_issues = []
+        self.html_elements = []
         self.id_references = []
         self.image_issues = []
         self.links = []
+        self.meta_descriptions = []
+        self.titles = []
+        self.viewports = []
+        self._active_title = None
         self.feed(content)
+        self._validate_document()
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        line = self.getpos()[0]
+        if tag == 'html':
+            self.html_elements.append((line, attrs.get('lang')))
+        elif tag == 'title':
+            self._active_title = [line, []]
+            self.titles.append(self._active_title)
+        elif tag == 'meta':
+            name = (attrs.get('name') or '').lower()
+            entry = (line, attrs.get('content'))
+            if name == 'description':
+                self.meta_descriptions.append(entry)
+            elif name == 'viewport':
+                self.viewports.append(entry)
         if attrs.get('id'):
             identifier = attrs['id']
-            line = self.getpos()[0]
             if identifier in self.id_lines:
                 self.duplicate_ids.append((line, identifier, self.id_lines[identifier]))
             else:
@@ -75,6 +94,44 @@ class Page(HTMLParser):
             if attrs.get(attr):
                 self.links.append((self.getpos()[0], attrs[attr]))
 
+    def handle_data(self, data):
+        if self._active_title is not None:
+            self._active_title[1].append(data)
+
+    def handle_endtag(self, tag):
+        if tag == 'title':
+            self._active_title = None
+
+    def _validate_document(self):
+        if len(self.html_elements) != 1:
+            self.document_issues.append(
+                (1, f'expected one html element, found {len(self.html_elements)}')
+            )
+        elif not (self.html_elements[0][1] or '').strip():
+            self.document_issues.append(
+                (self.html_elements[0][0], 'html element missing lang attribute')
+            )
+
+        if len(self.titles) != 1:
+            self.document_issues.append(
+                (1, f'expected one title element, found {len(self.titles)}')
+            )
+        for line, chunks in self.titles:
+            if not ''.join(chunks).strip():
+                self.document_issues.append((line, 'empty title element'))
+
+        for label, entries in (
+            ('meta description', self.meta_descriptions),
+            ('meta viewport', self.viewports),
+        ):
+            if len(entries) != 1:
+                self.document_issues.append(
+                    (1, f'expected one {label}, found {len(entries)}')
+                )
+            for line, content in entries:
+                if not (content or '').strip():
+                    self.document_issues.append((line, f'empty {label} content'))
+
 
 def check(paths, contents, styles=None):
     pages = {name: Page(content) for name, content in contents.items()}
@@ -103,6 +160,8 @@ def check(paths, contents, styles=None):
                 errors.append(f'{prefix} -> missing fragment: {fragment}')
 
     for source, page in sorted(pages.items()):
+        for line, issue in page.document_issues:
+            errors.append(f'{source}:{line}: document {issue}')
         for line, issue in page.image_issues:
             errors.append(f'{source}:{line}: image {issue}')
         for line, identifier, first_line in page.duplicate_ids:
