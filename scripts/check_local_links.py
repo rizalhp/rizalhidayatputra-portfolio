@@ -12,6 +12,7 @@ from pathlib import Path
 import posixpath
 import re
 from urllib.parse import unquote, urlsplit
+from xml.etree import ElementTree
 
 
 CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
@@ -189,6 +190,78 @@ def check(paths, contents, styles=None):
     return checked, errors
 
 
+def check_site_manifest(html_paths, sitemap_content, robots_content):
+    errors = []
+    if sitemap_content is None:
+        return ['sitemap.xml: missing file']
+    if robots_content is None:
+        errors.append('robots.txt: missing file')
+
+    try:
+        root = ElementTree.fromstring(sitemap_content)
+    except ElementTree.ParseError as error:
+        errors.append(f'sitemap.xml: invalid XML: {error}')
+        return errors
+
+    locations = [(element.text or '').strip()
+                 for element in root.findall('.//{*}loc')]
+    if not locations:
+        errors.append('sitemap.xml: no URL locations found')
+
+    origin = None
+    sitemap_paths = set()
+    for location in locations:
+        url = urlsplit(location)
+        if (url.scheme != 'https' or not url.netloc or url.query
+                or url.fragment):
+            errors.append(f'sitemap.xml: invalid public URL: {location}')
+            continue
+        current_origin = f'{url.scheme}://{url.netloc}'
+        if origin is None:
+            origin = current_origin
+        elif current_origin != origin:
+            errors.append(
+                f'sitemap.xml: mixed origin: {current_origin} '
+                f'(expected {origin})'
+            )
+        public_path = url.path or '/'
+        if public_path in sitemap_paths:
+            errors.append(f'sitemap.xml: duplicate path: {public_path}')
+        sitemap_paths.add(public_path)
+
+    expected_paths = set()
+    for path in html_paths:
+        if path == 'index.html':
+            expected_paths.add('/')
+        elif path.endswith('/index.html'):
+            expected_paths.add('/' + path[:-len('index.html')])
+        else:
+            expected_paths.add('/' + path)
+
+    for path in sorted(expected_paths - sitemap_paths):
+        errors.append(f'sitemap.xml: missing page: {path}')
+    for path in sorted(sitemap_paths - expected_paths):
+        errors.append(f'sitemap.xml: unknown page: {path}')
+
+    if robots_content is not None:
+        directives = re.findall(
+            r'^\s*Sitemap:\s*(\S+)\s*$',
+            robots_content,
+            flags=re.IGNORECASE | re.MULTILINE,
+        )
+        if len(directives) != 1:
+            errors.append(
+                f'robots.txt: expected one Sitemap directive, '
+                f'found {len(directives)}'
+            )
+        elif origin and directives[0] != f'{origin}/sitemap.xml':
+            errors.append(
+                f'robots.txt: Sitemap points to {directives[0]} '
+                f'(expected {origin}/sitemap.xml)'
+            )
+    return errors
+
+
 def main():
     root = Path(__file__).resolve().parent.parent
     files = [p for p in root.rglob('*') if p.is_file()
@@ -203,6 +276,15 @@ def main():
         print('No HTML pages found; check the repository location.')
         return 1
     count, errors = check(paths, contents, styles)
+    sitemap_path = root / 'sitemap.xml'
+    robots_path = root / 'robots.txt'
+    errors.extend(check_site_manifest(
+        contents,
+        sitemap_path.read_text(encoding='utf-8')
+        if sitemap_path.is_file() else None,
+        robots_path.read_text(encoding='utf-8')
+        if robots_path.is_file() else None,
+    ))
     for error in errors:
         print(error)
     print(f'Checked {count} local references across {len(contents)} HTML pages and {len(styles)} stylesheets; {len(errors)} errors.')

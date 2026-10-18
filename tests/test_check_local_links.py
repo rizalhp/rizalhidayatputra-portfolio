@@ -1,6 +1,6 @@
 import unittest
 
-from scripts.check_local_links import Page, check
+from scripts.check_local_links import Page, check, check_site_manifest
 
 
 def document(body='', title='Test page'):
@@ -149,6 +149,52 @@ class CheckTests(unittest.TestCase):
         self.assertTrue(any('empty title element' in error for error in errors))
         self.assertTrue(any('empty meta description content' in error for error in errors))
         self.assertTrue(any('empty meta viewport content' in error for error in errors))
+
+
+class SiteManifestTests(unittest.TestCase):
+    def test_complete_sitemap_and_robots_are_valid(self):
+        sitemap = (
+            '<?xml version="1.0"?>'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            '<url><loc>https://example.com/</loc></url>'
+            '<url><loc>https://example.com/about.html</loc></url>'
+            '</urlset>'
+        )
+        robots = 'User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml\n'
+
+        errors = check_site_manifest(
+            {'index.html', 'about.html'}, sitemap, robots
+        )
+
+        self.assertEqual(errors, [])
+
+    def test_sitemap_and_robots_mismatches_are_reported(self):
+        sitemap = (
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            '<url><loc>https://example.com/</loc></url>'
+            '<url><loc>https://example.com/</loc></url>'
+            '<url><loc>https://other.example/legacy.html</loc></url>'
+            '</urlset>'
+        )
+        robots = 'Sitemap: https://example.com/wrong.xml\n'
+
+        errors = check_site_manifest(
+            {'index.html', 'about.html'}, sitemap, robots
+        )
+
+        self.assertTrue(any('duplicate path: /' in error for error in errors))
+        self.assertTrue(any('mixed origin: https://other.example' in error
+                            for error in errors))
+        self.assertTrue(any('missing page: /about.html' in error for error in errors))
+        self.assertTrue(any('unknown page: /legacy.html' in error for error in errors))
+        self.assertTrue(any('Sitemap points to' in error for error in errors))
+
+    def test_malformed_sitemap_is_reported(self):
+        errors = check_site_manifest(
+            {'index.html'}, '<urlset><url></urlset>', 'User-agent: *\n'
+        )
+
+        self.assertTrue(any('invalid XML' in error for error in errors))
 
 
 if __name__ == '__main__':
