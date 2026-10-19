@@ -36,11 +36,13 @@ class Page(HTMLParser):
         self.id_lines = {}
         self.duplicate_ids = []
         self.document_issues = []
+        self.canonicals = []
         self.html_elements = []
         self.id_references = []
         self.image_issues = []
         self.links = []
         self.meta_descriptions = []
+        self.og_urls = []
         self.titles = []
         self.viewports = []
         self._active_title = None
@@ -62,6 +64,12 @@ class Page(HTMLParser):
                 self.meta_descriptions.append(entry)
             elif name == 'viewport':
                 self.viewports.append(entry)
+            if (attrs.get('property') or '').lower() == 'og:url':
+                self.og_urls.append(entry)
+        elif tag == 'link':
+            rel = (attrs.get('rel') or '').lower().split()
+            if 'canonical' in rel:
+                self.canonicals.append((line, attrs.get('href')))
         if attrs.get('id'):
             identifier = attrs['id']
             if identifier in self.id_lines:
@@ -262,6 +270,46 @@ def check_site_manifest(html_paths, sitemap_content, robots_content):
     return errors
 
 
+def check_public_page_urls(contents, sitemap_content):
+    try:
+        root = ElementTree.fromstring(sitemap_content)
+    except (ElementTree.ParseError, TypeError):
+        return []
+
+    origin = None
+    for element in root.findall('.//{*}loc'):
+        url = urlsplit((element.text or '').strip())
+        if url.scheme == 'https' and url.netloc:
+            origin = f'{url.scheme}://{url.netloc}'
+            break
+    if origin is None:
+        return []
+
+    errors = []
+    for source, content in sorted(contents.items()):
+        page = Page(content)
+        public_path = ('/' if source == 'index.html'
+                       else '/' + source[:-len('index.html')]
+                       if source.endswith('/index.html')
+                       else '/' + source)
+        expected = origin + public_path
+        for label, entries in (
+            ('canonical link', page.canonicals),
+            ('og:url', page.og_urls),
+        ):
+            if len(entries) != 1:
+                errors.append(
+                    f'{source}:1: expected one {label}, found {len(entries)}'
+                )
+            for line, value in entries:
+                if value != expected:
+                    errors.append(
+                        f'{source}:{line}: {label} points to {value!r} '
+                        f'(expected {expected})'
+                    )
+    return errors
+
+
 def main():
     root = Path(__file__).resolve().parent.parent
     files = [p for p in root.rglob('*') if p.is_file()
@@ -278,13 +326,16 @@ def main():
     count, errors = check(paths, contents, styles)
     sitemap_path = root / 'sitemap.xml'
     robots_path = root / 'robots.txt'
+    sitemap_content = (sitemap_path.read_text(encoding='utf-8')
+                       if sitemap_path.is_file() else None)
+    robots_content = (robots_path.read_text(encoding='utf-8')
+                      if robots_path.is_file() else None)
     errors.extend(check_site_manifest(
         contents,
-        sitemap_path.read_text(encoding='utf-8')
-        if sitemap_path.is_file() else None,
-        robots_path.read_text(encoding='utf-8')
-        if robots_path.is_file() else None,
+        sitemap_content,
+        robots_content,
     ))
+    errors.extend(check_public_page_urls(contents, sitemap_content))
     for error in errors:
         print(error)
     print(f'Checked {count} local references across {len(contents)} HTML pages and {len(styles)} stylesheets; {len(errors)} errors.')

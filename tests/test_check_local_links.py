@@ -1,6 +1,11 @@
 import unittest
 
-from scripts.check_local_links import Page, check, check_site_manifest
+from scripts.check_local_links import (
+    Page,
+    check,
+    check_public_page_urls,
+    check_site_manifest,
+)
 
 
 def document(body='', title='Test page'):
@@ -195,6 +200,68 @@ class SiteManifestTests(unittest.TestCase):
         )
 
         self.assertTrue(any('invalid XML' in error for error in errors))
+
+
+class PublicPageUrlTests(unittest.TestCase):
+    sitemap = (
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        '<url><loc>https://example.com/</loc></url>'
+        '<url><loc>https://example.com/about.html</loc></url>'
+        '</urlset>'
+    )
+
+    def public_document(self, url, extra=''):
+        return (
+            '<html lang="en"><head>'
+            '<meta name="viewport" content="width=device-width">'
+            '<meta name="description" content="Test description">'
+            '<title>Test page</title>'
+            f'<link rel="canonical" href="{url}">'
+            f'<meta property="og:url" content="{url}">'
+            f'{extra}</head><body></body></html>'
+        )
+
+    def test_canonical_and_open_graph_urls_match_public_pages(self):
+        contents = {
+            'index.html': self.public_document('https://example.com/'),
+            'about.html': self.public_document(
+                'https://example.com/about.html'
+            ),
+        }
+
+        errors = check_public_page_urls(contents, self.sitemap)
+
+        self.assertEqual(errors, [])
+
+    def test_missing_duplicate_and_mismatched_urls_are_reported(self):
+        contents = {
+            'index.html': (
+                '<html lang="en"><head><title>Home</title></head></html>'
+            ),
+            'about.html': self.public_document(
+                'https://example.com/wrong.html',
+                '<link rel="canonical" href="https://example.com/about.html">',
+            ),
+        }
+
+        errors = check_public_page_urls(contents, self.sitemap)
+
+        self.assertTrue(
+            any('index.html:1: expected one canonical link, found 0' in error
+                for error in errors)
+        )
+        self.assertTrue(
+            any('index.html:1: expected one og:url, found 0' in error
+                for error in errors)
+        )
+        self.assertTrue(
+            any('about.html:1: expected one canonical link, found 2' in error
+                for error in errors)
+        )
+        self.assertTrue(
+            any("og:url points to 'https://example.com/wrong.html'" in error
+                for error in errors)
+        )
 
 
 if __name__ == '__main__':
