@@ -38,13 +38,17 @@ class Page(HTMLParser):
         self.document_issues = []
         self.canonicals = []
         self.html_elements = []
+        self.h1_elements = []
         self.id_references = []
         self.image_issues = []
         self.links = []
+        self.main_elements = []
         self.meta_descriptions = []
+        self.nav_elements = []
         self.og_urls = []
         self.titles = []
         self.viewports = []
+        self._active_h1 = None
         self._active_title = None
         self.feed(content)
         self._validate_document()
@@ -54,6 +58,17 @@ class Page(HTMLParser):
         line = self.getpos()[0]
         if tag == 'html':
             self.html_elements.append((line, attrs.get('lang')))
+        elif tag == 'h1':
+            self._active_h1 = [line, []]
+            self.h1_elements.append(self._active_h1)
+        elif tag == 'main':
+            self.main_elements.append(line)
+        elif tag == 'nav':
+            self.nav_elements.append((
+                line,
+                attrs.get('aria-label'),
+                attrs.get('aria-labelledby'),
+            ))
         elif tag == 'title':
             self._active_title = [line, []]
             self.titles.append(self._active_title)
@@ -104,11 +119,15 @@ class Page(HTMLParser):
                 self.links.append((self.getpos()[0], attrs[attr]))
 
     def handle_data(self, data):
+        if self._active_h1 is not None:
+            self._active_h1[1].append(data)
         if self._active_title is not None:
             self._active_title[1].append(data)
 
     def handle_endtag(self, tag):
-        if tag == 'title':
+        if tag == 'h1':
+            self._active_h1 = None
+        elif tag == 'title':
             self._active_title = None
 
     def _validate_document(self):
@@ -140,6 +159,24 @@ class Page(HTMLParser):
             for line, content in entries:
                 if not (content or '').strip():
                     self.document_issues.append((line, f'empty {label} content'))
+
+        if not self.h1_elements:
+            self.document_issues.append((1, 'missing h1 element'))
+        for line, chunks in self.h1_elements:
+            if not ''.join(chunks).strip():
+                self.document_issues.append((line, 'empty h1 element'))
+
+        if len(self.main_elements) != 1:
+            self.document_issues.append(
+                (1, f'expected one main element, found {len(self.main_elements)}')
+            )
+
+        for line, aria_label, aria_labelledby in self.nav_elements:
+            if not ((aria_label or '').strip()
+                    or (aria_labelledby or '').strip()):
+                self.document_issues.append(
+                    (line, 'nav element missing accessible name')
+                )
 
 
 def check(paths, contents, styles=None):

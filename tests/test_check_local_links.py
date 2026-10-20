@@ -13,7 +13,8 @@ def document(body='', title='Test page'):
         '<!doctype html><html lang="en"><head>'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<meta name="description" content="Test description">'
-        f'<title>{title}</title></head><body>{body}</body></html>'
+        f'<title>{title}</title></head><body>'
+        f'<main><h1>{title}</h1>{body}</main></body></html>'
     )
 
 
@@ -154,6 +155,28 @@ class CheckTests(unittest.TestCase):
         self.assertTrue(any('empty title element' in error for error in errors))
         self.assertTrue(any('empty meta description content' in error for error in errors))
         self.assertTrue(any('empty meta viewport content' in error for error in errors))
+
+    def test_missing_landmarks_and_navigation_name_are_reported(self):
+        contents = {
+            'index.html': (
+                '<html lang="en"><head>'
+                '<meta name="viewport" content="width=device-width">'
+                '<meta name="description" content="Test description">'
+                '<title>Test page</title></head><body>'
+                '<nav></nav><main><h1> </h1></main><main></main>'
+                '</body></html>'
+            )
+        }
+
+        _, errors = check({'index.html'}, contents)
+
+        self.assertTrue(any('empty h1 element' in error for error in errors))
+        self.assertTrue(
+            any('expected one main element, found 2' in error for error in errors)
+        )
+        self.assertTrue(
+            any('nav element missing accessible name' in error for error in errors)
+        )
 
 
 class SiteManifestTests(unittest.TestCase):
