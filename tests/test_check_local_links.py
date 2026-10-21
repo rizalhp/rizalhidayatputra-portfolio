@@ -13,7 +13,10 @@ def document(body='', title='Test page'):
         '<!doctype html><html lang="en"><head>'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<meta name="description" content="Test description">'
-        f'<title>{title}</title></head><body>'
+        f'<title>{title}</title>'
+        '<script type="application/ld+json">'
+        '{"@context":"https://schema.org","@type":"WebPage"}'
+        '</script></head><body>'
         f'<main><h1>{title}</h1>{body}</main></body></html>'
     )
 
@@ -178,6 +181,33 @@ class CheckTests(unittest.TestCase):
             any('nav element missing accessible name' in error for error in errors)
         )
 
+    def test_invalid_structured_data_is_reported(self):
+        contents = {
+            'index.html': document().replace(
+                '{"@context":"https://schema.org","@type":"WebPage"}',
+                '{"@context":"https://example.com", "name": }',
+            )
+        }
+
+        _, errors = check({'index.html'}, contents)
+
+        self.assertTrue(any('invalid JSON-LD' in error for error in errors))
+
+    def test_structured_data_requires_context_and_type(self):
+        contents = {
+            'index.html': document().replace(
+                '{"@context":"https://schema.org","@type":"WebPage"}',
+                '{"name":"Test page"}',
+            )
+        }
+
+        _, errors = check({'index.html'}, contents)
+
+        self.assertTrue(
+            any('JSON-LD missing schema.org context' in error for error in errors)
+        )
+        self.assertTrue(any('JSON-LD missing @type' in error for error in errors))
+
 
 class SiteManifestTests(unittest.TestCase):
     def test_complete_sitemap_and_robots_are_valid(self):
@@ -241,6 +271,10 @@ class PublicPageUrlTests(unittest.TestCase):
             '<title>Test page</title>'
             f'<link rel="canonical" href="{url}">'
             f'<meta property="og:url" content="{url}">'
+            '<script type="application/ld+json">'
+            f'{{"@context":"https://schema.org","@type":"WebPage",'
+            f'"url":"{url}"}}'
+            '</script>'
             f'{extra}</head><body></body></html>'
         )
 
@@ -283,6 +317,10 @@ class PublicPageUrlTests(unittest.TestCase):
         )
         self.assertTrue(
             any("og:url points to 'https://example.com/wrong.html'" in error
+                for error in errors)
+        )
+        self.assertTrue(
+            any("JSON-LD url points to 'https://example.com/wrong.html'" in error
                 for error in errors)
         )
 

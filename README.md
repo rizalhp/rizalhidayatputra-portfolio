@@ -54,7 +54,7 @@ Then audit the current site:
 python3 scripts/check_local_links.py
 ```
 
-The audit checks local `href` and `src` targets, CSS `url()` assets, HTML fragments, duplicate IDs, ID references used by ARIA and form attributes, essential document metadata, the main landmark, primary headings, accessible navigation names, canonical and Open Graph page URLs, image `alt`, `width`, and `height` metadata, sitemap coverage, and the `robots.txt` sitemap directive. External URLs, `srcset`, and references assembled by JavaScript are intentionally outside its scope.
+The audit checks local `href` and `src` targets, CSS `url()` assets, HTML fragments, duplicate IDs, ID references used by ARIA and form attributes, essential document metadata, the main landmark, primary headings, accessible navigation names, canonical and Open Graph page URLs, JSON-LD syntax and public URLs, image `alt`, `width`, and `height` metadata, sitemap coverage, and the `robots.txt` sitemap directive. External URLs, `srcset`, and references assembled by JavaScript are intentionally outside its scope.
 
 ## Security
 Do not commit or share `.env*` files. They are ignored by `.gitignore` and are not included in the distributable ZIP.

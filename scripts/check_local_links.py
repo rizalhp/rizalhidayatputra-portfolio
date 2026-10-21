@@ -8,6 +8,7 @@ excluded.
 """
 
 from html.parser import HTMLParser
+import json
 from pathlib import Path
 import posixpath
 import re
@@ -46,9 +47,12 @@ class Page(HTMLParser):
         self.meta_descriptions = []
         self.nav_elements = []
         self.og_urls = []
+        self.structured_data = []
+        self.structured_data_scripts = []
         self.titles = []
         self.viewports = []
         self._active_h1 = None
+        self._active_structured_data = None
         self._active_title = None
         self.feed(content)
         self._validate_document()
@@ -72,6 +76,13 @@ class Page(HTMLParser):
         elif tag == 'title':
             self._active_title = [line, []]
             self.titles.append(self._active_title)
+        elif (tag == 'script'
+              and (attrs.get('type') or '').lower()
+              == 'application/ld+json'):
+            self._active_structured_data = [line, []]
+            self.structured_data_scripts.append(
+                self._active_structured_data
+            )
         elif tag == 'meta':
             name = (attrs.get('name') or '').lower()
             entry = (line, attrs.get('content'))
@@ -121,12 +132,16 @@ class Page(HTMLParser):
     def handle_data(self, data):
         if self._active_h1 is not None:
             self._active_h1[1].append(data)
+        if self._active_structured_data is not None:
+            self._active_structured_data[1].append(data)
         if self._active_title is not None:
             self._active_title[1].append(data)
 
     def handle_endtag(self, tag):
         if tag == 'h1':
             self._active_h1 = None
+        elif tag == 'script':
+            self._active_structured_data = None
         elif tag == 'title':
             self._active_title = None
 
@@ -176,6 +191,35 @@ class Page(HTMLParser):
                     or (aria_labelledby or '').strip()):
                 self.document_issues.append(
                     (line, 'nav element missing accessible name')
+                )
+
+        if len(self.structured_data_scripts) != 1:
+            self.document_issues.append((
+                1,
+                'expected one JSON-LD script, '
+                f'found {len(self.structured_data_scripts)}',
+            ))
+        for line, chunks in self.structured_data_scripts:
+            try:
+                data = json.loads(''.join(chunks))
+            except json.JSONDecodeError as error:
+                self.document_issues.append(
+                    (line, f'invalid JSON-LD: {error.msg}')
+                )
+                continue
+            if not isinstance(data, dict):
+                self.document_issues.append(
+                    (line, 'JSON-LD root must be an object')
+                )
+                continue
+            self.structured_data.append((line, data))
+            if data.get('@context') != 'https://schema.org':
+                self.document_issues.append(
+                    (line, 'JSON-LD missing schema.org context')
+                )
+            if not str(data.get('@type') or '').strip():
+                self.document_issues.append(
+                    (line, 'JSON-LD missing @type')
                 )
 
 
@@ -333,6 +377,10 @@ def check_public_page_urls(contents, sitemap_content):
         for label, entries in (
             ('canonical link', page.canonicals),
             ('og:url', page.og_urls),
+            ('JSON-LD url', [
+                (line, data.get('url'))
+                for line, data in page.structured_data
+            ]),
         ):
             if len(entries) != 1:
                 errors.append(
