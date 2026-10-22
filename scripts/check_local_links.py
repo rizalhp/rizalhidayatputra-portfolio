@@ -43,6 +43,7 @@ class Page(HTMLParser):
         self.id_references = []
         self.image_issues = []
         self.links = []
+        self.link_security_issues = []
         self.main_elements = []
         self.meta_descriptions = []
         self.nav_elements = []
@@ -105,6 +106,13 @@ class Page(HTMLParser):
             self.targets.add(identifier)
         if tag == 'a' and attrs.get('name'):
             self.targets.add(attrs['name'])
+        if tag == 'a' and (attrs.get('target') or '').lower() == '_blank':
+            rel = {value.lower() for value in (attrs.get('rel') or '').split()}
+            if not rel.intersection({'noopener', 'noreferrer'}):
+                self.link_security_issues.append((
+                    line,
+                    'target="_blank" missing noopener or noreferrer',
+                ))
         if tag == 'img':
             line = self.getpos()[0]
             if 'alt' not in attrs:
@@ -254,6 +262,8 @@ def check(paths, contents, styles=None):
             errors.append(f'{source}:{line}: document {issue}')
         for line, issue in page.image_issues:
             errors.append(f'{source}:{line}: image {issue}')
+        for line, issue in page.link_security_issues:
+            errors.append(f'{source}:{line}: link {issue}')
         for line, identifier, first_line in page.duplicate_ids:
             errors.append(
                 f'{source}:{line}: duplicate id: {identifier} '

@@ -121,6 +121,25 @@ class CheckTests(unittest.TestCase):
         self.assertEqual(checked, 0)
         self.assertEqual(errors, [])
 
+    def test_new_tab_links_require_opener_protection(self):
+        contents = {
+            'index.html': document(
+                '<a href="https://safe.example" target="_blank" '
+                'rel="noreferrer">Safe</a>\n'
+                '<a href="https://unsafe.example" target="_blank">Unsafe</a>'
+            )
+        }
+
+        _, errors = check({'index.html'}, contents)
+
+        self.assertEqual(
+            [error for error in errors if ': link ' in error],
+            [
+                'index.html:2: link target="_blank" missing noopener '
+                'or noreferrer'
+            ],
+        )
+
     def test_required_document_metadata_is_reported_when_missing(self):
         contents = {'index.html': '<html><head></head><body></body></html>'}
 
