@@ -302,6 +302,13 @@ def check_site_manifest(html_paths, sitemap_content, robots_content):
         errors.append(f'sitemap.xml: invalid XML: {error}')
         return errors
 
+    expected_root = '{http://www.sitemaps.org/schemas/sitemap/0.9}urlset'
+    if root.tag != expected_root:
+        errors.append(
+            'sitemap.xml: expected urlset root in the Sitemap protocol namespace'
+        )
+        return errors
+
     locations = [(element.text or '').strip()
                  for element in root.findall('.//{*}loc')]
     if not locations:

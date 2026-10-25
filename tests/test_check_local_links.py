@@ -266,6 +266,30 @@ class SiteManifestTests(unittest.TestCase):
         self.assertTrue(any('unknown page: /legacy.html' in error for error in errors))
         self.assertTrue(any('Sitemap points to' in error for error in errors))
 
+    def test_sitemap_requires_protocol_root_and_namespace(self):
+        sitemap_cases = {
+            'missing namespace': (
+                '<urlset><url><loc>https://example.com/</loc></url></urlset>'
+            ),
+            'wrong namespace': (
+                '<urlset xmlns="https://example.com/sitemap">'
+                '<url><loc>https://example.com/</loc></url></urlset>'
+            ),
+            'wrong root': (
+                '<sitemap xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                '<url><loc>https://example.com/</loc></url></sitemap>'
+            ),
+        }
+        robots = 'Sitemap: https://example.com/sitemap.xml\n'
+        expected_error = (
+            'sitemap.xml: expected urlset root in the Sitemap protocol namespace'
+        )
+
+        for label, sitemap in sitemap_cases.items():
+            with self.subTest(case=label):
+                errors = check_site_manifest({'index.html'}, sitemap, robots)
+                self.assertIn(expected_error, errors)
+
     def test_malformed_sitemap_is_reported(self):
         errors = check_site_manifest(
             {'index.html'}, '<urlset><url></urlset>', 'User-agent: *\n'
