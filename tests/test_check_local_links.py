@@ -290,6 +290,31 @@ class SiteManifestTests(unittest.TestCase):
                 errors = check_site_manifest({'index.html'}, sitemap, robots)
                 self.assertIn(expected_error, errors)
 
+    def test_sitemap_locations_require_https_without_query_or_fragment(self):
+        invalid_locations = [
+            'http://example.com/about.html',
+            'https://example.com/search.html?source=nav',
+            'https://example.com/about.html#details',
+        ]
+        entries = '<url><loc>https://example.com/</loc></url>' + ''.join(
+            f'<url><loc>{location}</loc></url>'
+            for location in invalid_locations
+        )
+        sitemap = (
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            f'{entries}</urlset>'
+        )
+        robots = 'Sitemap: https://example.com/sitemap.xml\\n'
+
+        errors = check_site_manifest({'index.html'}, sitemap, robots)
+
+        for location in invalid_locations:
+            with self.subTest(location=location):
+                self.assertIn(
+                    f'sitemap.xml: invalid public URL: {location}',
+                    errors,
+                )
+
     def test_malformed_sitemap_is_reported(self):
         errors = check_site_manifest(
             {'index.html'}, '<urlset><url></urlset>', 'User-agent: *\n'
