@@ -304,7 +304,7 @@ class SiteManifestTests(unittest.TestCase):
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             f'{entries}</urlset>'
         )
-        robots = 'Sitemap: https://example.com/sitemap.xml\\n'
+        robots = 'Sitemap: https://example.com/sitemap.xml\n'
 
         errors = check_site_manifest({'index.html'}, sitemap, robots)
 
