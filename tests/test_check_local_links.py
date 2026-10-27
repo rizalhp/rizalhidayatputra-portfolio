@@ -66,6 +66,20 @@ class CheckTests(unittest.TestCase):
         self.assertEqual(checked, 3)
         self.assertEqual(errors, [])
 
+    def test_percent_encoded_and_text_fragments_are_supported(self):
+        contents = {
+            'index.html': document(
+                '<section id="case-study">Case study</section>'
+                '<a href="#case%2Dstudy">Encoded fragment</a>\\n'
+                '<a href="#case-study:~:text=Case%20study">Text fragment</a>'
+            )
+        }
+
+        checked, errors = check({'index.html'}, contents)
+
+        self.assertEqual(checked, 2)
+        self.assertEqual(errors, [])
+
     def test_missing_files_and_fragments_are_reported(self):
         paths = {'index.html', 'styles/site.css'}
         contents = {
