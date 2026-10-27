@@ -70,7 +70,7 @@ class CheckTests(unittest.TestCase):
         contents = {
             'index.html': document(
                 '<section id="case-study">Case study</section>'
-                '<a href="#case%2Dstudy">Encoded fragment</a>\\n'
+                '<a href="#case%2Dstudy">Encoded fragment</a>\n'
                 '<a href="#case-study:~:text=Case%20study">Text fragment</a>'
             )
         }
